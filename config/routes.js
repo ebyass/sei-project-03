@@ -6,6 +6,9 @@ const users = require('../controllers/users')
 router.route('/register')
   .post(auth.register)
 	
+router.route('/login')
+  .post(auth.login)
+	
 router.route('/users')
   .get(users.index)
 	
