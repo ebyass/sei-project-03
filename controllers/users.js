@@ -44,10 +44,27 @@ async function userDelete (req, res) {
   }
 }
 
+async function userFriendRequest (req, res) {
+  try {
+    const userId = req.params.id
+    const user = await User.findById(userId)
+    // * if (!user.friends.user.req.params.id) throw new Error() ---- NOT WORKING AS INTENDED
+    const requestUser = await User.findById(req.currentUser._id)
+    user.friends.push({ user: req.currentUser._id })
+    await user.save()
+    requestUser.friends.push({ user: user._id, accepted: true })
+    await requestUser.save()
+    res.status(201).json(user)
+  } catch (err) {
+    res.status(422).json({ 'message': 'Request already exists' })
+  }
+}
+
 
 module.exports = {
   index: usersIndex,
   show: userShow,
   update: userUpdate,
-  delete: userDelete
+  delete: userDelete,
+  friend: userFriendRequest
 }
