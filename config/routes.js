@@ -26,8 +26,11 @@ router.route('/users/:id')
   .get(users.show)
   .put(users.update)
   .delete(users.delete)
-
-router.route('/friends/:id')
+	
+router.route('/users/:id/friends/requests')
   .post(secureRoute, users.friend)
+	
+router.route('/users/:id/friends/requests/:requestId')
+  .put(secureRoute, users.accept)
 	
 module.exports = router

@@ -60,11 +60,31 @@ async function userFriendRequest (req, res) {
   }
 }
 
+async function confirmFriendRequest (req, res) {
+  console.log('req.body', req.body)
+  try {
+    const userId = req.params.id
+    const requestId = req.params.requestId
+    console.log(requestId)
+    const user = await User.findById(userId)
+    const requestToUpdate = user.friends.id(requestId)
+    requestToUpdate.accepted = true
+    
+    console.log('user.friends', user.friends.findById(requestId))
+    // await user.friends.findByIdAndUpdate(requestId, { accepted: true }, { new: true })
+		
+    await user.save()
+    res.status(202).json(user)
+  } catch (err) {
+    res.json(err)
+  }
+}
 
 module.exports = {
   index: usersIndex,
   show: userShow,
   update: userUpdate,
   delete: userDelete,
-  friend: userFriendRequest
+  friend: userFriendRequest,
+  accept: confirmFriendRequest
 }
