@@ -2,7 +2,16 @@ const router = require('express').Router()
 const auth = require('../controllers/auth')
 const users = require('../controllers/users')
 const secureRoute = require('../lib/secureRoute')
+const expenses = require('../controllers/expenses')
 
+router.route('/expenses')
+  .get(expenses.index)
+  .post(expenses.create)
+
+router.route('/expenses/:id')
+  .get(expenses.show)
+  .post(expenses.update)
+  .delete(expenses.delete)
 
 router.route('/register')
   .post(auth.register)
