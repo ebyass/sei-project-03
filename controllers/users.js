@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const { notFound } = require('../lib/errorMessages')
 
 async function usersIndex(req, res, next) {
   try {
@@ -9,18 +10,18 @@ async function usersIndex(req, res, next) {
   }
 }
 
-async function userShow(req, res) {
+async function userShow(req, res, next) {
   const userId = req.params.id
   try {
     const user = await User.findById(userId)
-    if (!user) throw new Error()
+    if (!user) throw new Error(notFound)
     res.status(200).json(user)
   } catch (err) {
-    res.status(404).json({ 'message': 'Not found' })
+    next(err)
   }
 }
 
-async function userUpdate (req, res) {
+async function userUpdate (req, res, next) {
   const userId = req.params.id
   try {
     const user = await User.findByIdAndUpdate(
@@ -30,24 +31,26 @@ async function userUpdate (req, res) {
     )
     res.status(202).json(user)
   } catch (err) {
-    res.status(422).json(err)
+    next(err)
   }
 }
 
-async function userDelete (req, res) {
+async function userDelete (req, res, next) {
   const userId = req.params.id
   try {
     await User.findByIdAndDelete(userId)
     res.sendStatus(204)
   } catch (err) {
-    res.json(err)
+    next(err)
   }
 }
 
-async function userFriendRequest (req, res) {
+async function userFriendRequestCreate (req, res, next) {
   try {
     const userId = req.params.id
     const user = await User.findById(userId)
+    if (!user) throw new Error(notFound)
+    // if (user) throw new Error(unauthorized)
     // * if (!user.friends.user.req.params.id) throw new Error() ---- NOT WORKING AS INTENDED
     const requestUser = await User.findById(req.currentUser._id)
     user.friends.push({ user: req.currentUser._id })
@@ -56,13 +59,23 @@ async function userFriendRequest (req, res) {
     await requestUser.save()
     res.status(201).json(user)
   } catch (err) {
-    res.status(422).json({ 'message': 'Request already exists' })
+    next(err)
   }
 }
 
+async function userFriendRequestsShow (req, res) {
+  const userId = req.params.id
+  try {
+    const user = await User.findById(userId)
+    if (!user) throw new Error()
+    const friends = user.friends
+    res.status(200).json(friends)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
 
-
-async function confirmFriendRequest (req, res) {
+async function confirmFriendRequest (req, res, next) {
   try {
     const userId = req.params.id
     const requestId = req.params.requestId
@@ -75,7 +88,7 @@ async function confirmFriendRequest (req, res) {
     await user.save()
     res.status(202).json(user)
   } catch (err) {
-    res.json(err)
+    next(err)
   }
 }
 
@@ -84,6 +97,7 @@ module.exports = {
   show: userShow,
   update: userUpdate,
   delete: userDelete,
-  friend: userFriendRequest,
-  accept: confirmFriendRequest
+  friendRequestsShow: userFriendRequestsShow,
+  friendRequestCreate: userFriendRequestCreate,
+  friendRequestAccept: confirmFriendRequest
 }

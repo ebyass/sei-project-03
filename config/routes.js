@@ -28,9 +28,10 @@ router.route('/users/:id')
   .delete(users.delete)
 	
 router.route('/users/:id/friends/requests')
-  .post(secureRoute, users.friend)
+  .get(users.friendRequestsShow)
+  .post(secureRoute, users.friendRequestCreate)
 	
 router.route('/users/:id/friends/requests/:requestId')
-  .put(secureRoute, users.accept)
+  .put(secureRoute, users.friendRequestAccept)
 	
 module.exports = router
