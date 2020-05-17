@@ -34,4 +34,5 @@ router.route('/users/:id/friends/requests')
 router.route('/users/:id/friends/requests/:requestId')
   .put(secureRoute, users.friendRequestAccept)
 	
+
 module.exports = router

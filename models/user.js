@@ -1,8 +1,16 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
+
 const friendsSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  accepted: { type: Boolean, default: false, required: true },
+  firstName: { type: String, ref: 'User' }
+})
+
+const pendingExpenseSchema = new mongoose.Schema({
+  owedby: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  expenseId: { type: mongoose.Schema.ObjectId, ref: 'Expense', required: true },
   accepted: { type: Boolean, default: false, required: true }
 })
 
@@ -15,7 +23,8 @@ const userSchema = new mongoose.Schema({
   phoneNumber: { type: String, required: true, unique: true },
   image: { type: String },
   balance: { type: Number, default: 0 },
-  friends: [friendsSchema]
+  friends: [friendsSchema],
+  pendingExpenses: [pendingExpenseSchema]
 }, 
 { timestamps: true })
 

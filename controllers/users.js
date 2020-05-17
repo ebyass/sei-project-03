@@ -53,9 +53,9 @@ async function userFriendRequestCreate (req, res, next) {
     // if (user) throw new Error(unauthorized)
     // * if (!user.friends.user.req.params.id) throw new Error() ---- NOT WORKING AS INTENDED
     const requestUser = await User.findById(req.currentUser._id)
-    user.friends.push({ user: req.currentUser._id })
+    user.friends.push({ user: req.currentUser._id, firstName: req.currentUser.firstName })
     await user.save()
-    requestUser.friends.push({ user: user._id, accepted: true })
+    requestUser.friends.push({ user: user._id, accepted: false, firstName: user.firstName })
     await requestUser.save()
     res.status(201).json(user)
   } catch (err) {
@@ -78,17 +78,46 @@ async function userFriendRequestsShow (req, res) {
 async function confirmFriendRequest (req, res, next) {
   try {
     const userId = req.params.id
+    
     const requestId = req.params.requestId
+    
     const user = await User.findById(userId)
+   
     user.friends.map(friend => {
-      if (friend.id === requestId) {
+      
+      if (friend.id === requestId) { //* <--- why is it id and not _id ??
+        console.log(friend.id)
         friend.accepted = true
+        console.log('friends array updated')
+        const friendId = friend.user
+        friendToUpdate(friendId, user)
+
       }
     })
     await user.save()
+    
     res.status(202).json(user)
   } catch (err) {
-    next(err)
+    console.log(err)
+  }
+}
+
+async function friendToUpdate(friendId, user) {
+	
+  try {
+    console.log('friendId', friendId)
+    const friendToUpdate = await User.findById(friendId)
+    console.log('friendToUpdate', friendToUpdate)
+    friendToUpdate.friends.map(friend => {
+      console.log(typeof(JSON.stringify(friend.user)), typeof(user.id))
+      if (JSON.stringify(friend.user) === JSON.stringify(user.id)) {
+        console.log(friend.user, user.id)
+        friend.accepted = true
+      }
+    })
+    await friendToUpdate.save()
+  } catch (err) {
+    console.log(err)
   }
 }
 
