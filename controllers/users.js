@@ -1,5 +1,5 @@
 const User = require('../models/user')
-const { notFound, unauthorized } = require('../lib/errorMessages')
+const { notFound } = require('../lib/errorMessages')
 
 async function usersIndex(req, res, next) {
   try {
@@ -45,7 +45,7 @@ async function userDelete (req, res, next) {
   }
 }
 
-async function userFriendRequest (req, res, next) {
+async function userFriendRequestCreate (req, res, next) {
   try {
     const userId = req.params.id
     const user = await User.findById(userId)
@@ -63,7 +63,17 @@ async function userFriendRequest (req, res, next) {
   }
 }
 
-
+async function userFriendRequestsShow (req, res) {
+  const userId = req.params.id
+  try {
+    const user = await User.findById(userId)
+    if (!user) throw new Error()
+    const friends = user.friends
+    res.status(200).json(friends)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
 
 async function confirmFriendRequest (req, res, next) {
   try {
@@ -87,6 +97,7 @@ module.exports = {
   show: userShow,
   update: userUpdate,
   delete: userDelete,
-  friend: userFriendRequest,
-  accept: confirmFriendRequest
+  friendRequestsShow: userFriendRequestsShow,
+  friendRequestCreate: userFriendRequestCreate,
+  friendRequestAccept: confirmFriendRequest
 }
