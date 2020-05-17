@@ -76,12 +76,12 @@ async function confirmFriendRequest (req, res) {
   try {
     const userId = req.params.id
     const requestId = req.params.requestId
-    console.log(requestId)
     const user = await User.findById(userId)
-    const requestToUpdate = user.friends.id(requestId)
-    requestToUpdate.update(req.body)
-    // console.log('user.friends', user.friends.findById(requestId))
-    // await user.friends.findByIdAndUpdate(requestId, { accepted: true }, { new: true })
+    user.friends.map(friend => {
+      if (friend.id === requestId) {
+        friend.accepted = true
+      }
+    })
     await user.save()
     res.status(202).json(user)
   } catch (err) {
