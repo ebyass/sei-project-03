@@ -13,15 +13,6 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 app.use(bodyParser.json())
 
-
-
-app.use(router)
-
-
-
-
-
-
-
+app.use('/api', router)
 
 app.listen(port, () => console.log(`Up and running on port ${port}`))
