@@ -3,8 +3,7 @@ const Expense = require('../models/expense')
 async function expensesIndex (req, res) {
   try {
     const expenses = await Expense.find()
-    if (!expenses) throw new Error()
-    console.log('This shouldnt reach here') // ! This is running despite there being no expenses in the database
+    if (expenses.length === 0) throw new Error() // * Changed this error handling to check the array length, so that the error can be thrown if no expenses exist
     res.status(200).json(expenses)
   } catch (err) {
     res.status(404).json(err)

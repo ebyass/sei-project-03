@@ -5,8 +5,8 @@ const expenseSchema = new mongoose.Schema({
   category: { type: String, required: true },
   totalCost: { type: Number, required: true },
   date: { type: Date, required: true },
-  paidBy: { type: String, required: true },
-  owedBy: { type: String, required: true },
+  paidBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  owedBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   amountOwed: { type: Number }
 }, {
   timestamps: true
