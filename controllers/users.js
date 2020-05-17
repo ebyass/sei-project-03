@@ -82,7 +82,7 @@ async function confirmFriendRequest (req, res, next) {
     const requestId = req.params.requestId
     
     const user = await User.findById(userId)
-   
+
     user.friends.map(friend => {
       
       if (friend.id === requestId) { //* <--- why is it id and not _id ??
