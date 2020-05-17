@@ -44,7 +44,7 @@ async function userDelete (req, res) {
   }
 }
 
-async function userFriendRequest (req, res) {
+async function userFriendRequestCreate (req, res) {
   try {
     const userId = req.params.id
     const user = await User.findById(userId)
@@ -60,18 +60,27 @@ async function userFriendRequest (req, res) {
   }
 }
 
-
+async function userFriendRequestsShow (req, res) {
+  const userId = req.params.id
+  try {
+    const user = await User.findById(userId)
+    if (!user) throw new Error()
+    const friends = user.friends
+    res.status(200).json(friends)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
 
 async function confirmFriendRequest (req, res) {
-  console.log('req.body', req.body)
   try {
     const userId = req.params.id
     const requestId = req.params.requestId
     console.log(requestId)
     const user = await User.findById(userId)
     const requestToUpdate = user.friends.id(requestId)
-    requestToUpdate.accepted = true
-    console.log('user.friends', user.friends.findById(requestId))
+    requestToUpdate.update(req.body)
+    // console.log('user.friends', user.friends.findById(requestId))
     // await user.friends.findByIdAndUpdate(requestId, { accepted: true }, { new: true })
     await user.save()
     res.status(202).json(user)
@@ -85,6 +94,7 @@ module.exports = {
   show: userShow,
   update: userUpdate,
   delete: userDelete,
-  friend: userFriendRequest,
-  accept: confirmFriendRequest
+  friendRequestsShow: userFriendRequestsShow,
+  friendRequestCreate: userFriendRequestCreate,
+  friendRequestAccept: confirmFriendRequest
 }
