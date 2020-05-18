@@ -75,43 +75,66 @@ async function userFriendRequestsShow (req, res) {
   }
 }
 
-async function confirmFriendRequest (req, res, next) {
+async function rejectFriendRequest (req, res) {
   try {
     const userId = req.params.id
-    
     const requestId = req.params.requestId
-    
     const user = await User.findById(userId)
+    const requestRemove = user.friends.id(requestId)
+    const userFriend = requestRemove.user
+    removeFriend(userFriend, userId)
+    if (!requestRemove) throw new Error()
+    
+    await requestRemove.remove()
+    
+		
+    await user.save()
+    res.status(202).json({ 'message': 'person removed' })
+  } catch (err) {
+    console.log(err)
+  }
+}
 
-    user.friends.map(friend => {
-      
+async function removeFriend(userFriend, userId) {
+  
+  try {
+    const rejectedUser = await User.findById(userFriend)
+    rejectedUser.friends.map(friend => {
+      if (JSON.stringify(friend.user) === JSON.stringify(userId)) {
+        friend.remove()
+      } 
+    })
+    await rejectedUser.save()
+  } catch (err) {
+    console.log(err.message)
+  }
+}
+
+async function confirmFriendRequest (req, res) {
+  try {
+    const userId = req.params.id
+    const requestId = req.params.requestId
+    const user = await User.findById(userId)
+    user.friends.map(friend => { 
       if (friend.id === requestId) { //* <--- why is it id and not _id ??
-        console.log(friend.id)
         friend.accepted = true
-        console.log('friends array updated')
         const friendId = friend.user
         friendToUpdate(friendId, user)
-
       }
     })
     await user.save()
-    
     res.status(202).json(user)
   } catch (err) {
     console.log(err)
   }
 }
 
+
 async function friendToUpdate(friendId, user) {
-	
   try {
-    console.log('friendId', friendId)
     const friendToUpdate = await User.findById(friendId)
-    console.log('friendToUpdate', friendToUpdate)
     friendToUpdate.friends.map(friend => {
-      console.log(typeof(JSON.stringify(friend.user)), typeof(user.id))
       if (JSON.stringify(friend.user) === JSON.stringify(user.id)) {
-        console.log(friend.user, user.id)
         friend.accepted = true
       }
     })
@@ -121,6 +144,8 @@ async function friendToUpdate(friendId, user) {
   }
 }
 
+
+
 module.exports = {
   index: usersIndex,
   show: userShow,
@@ -128,5 +153,6 @@ module.exports = {
   delete: userDelete,
   friendRequestsShow: userFriendRequestsShow,
   friendRequestCreate: userFriendRequestCreate,
-  friendRequestAccept: confirmFriendRequest
+  friendRequestAccept: confirmFriendRequest,
+  rejectRequest: rejectFriendRequest
 }

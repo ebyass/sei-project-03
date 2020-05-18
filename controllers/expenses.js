@@ -17,8 +17,6 @@ async function expensesCreate(req, res) {
     console.log('paid by', userExpensePaidBy)
     const userExpenseOwedBy = await User.findById(req.body.owedBy)
     console.log('owed by', userExpenseOwedBy)
-
-
     userExpensePaidBy.friends.map(friend => {
       if (JSON.stringify(friend.user) !== JSON.stringify(userExpenseOwedBy._id) /*|| (JSON.stringify(friend.accepted) === false ) */ ) throw new Error()
     })

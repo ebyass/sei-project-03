@@ -7,11 +7,6 @@ const friendsSchema = new mongoose.Schema({
   firstName: { type: String, ref: 'User' }
 })
 
-// const pendingExpenseSchema = new mongoose.Schema({
-//   owedby: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
-//   expenseId: { type: mongoose.Schema.ObjectId, ref: 'Expense', required: true },
-//   accepted: { type: Boolean, default: false, required: true }
-// })
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
