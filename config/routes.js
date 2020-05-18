@@ -13,6 +13,8 @@ router.route('/expenses/:id')
   .get(expenses.show)
   .post(expenses.update)
   .delete(expenses.delete)
+  .put(secureRoute, expenses.accept)
+  .patch(secureRoute, expenses.settle)
 
 router.route('/register')
   .post(auth.register)
