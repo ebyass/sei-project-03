@@ -15,6 +15,10 @@ async function expensesCreate(req, res) {
   try {
     const userExpensePaidBy = await User.findById(req.body.paidBy)
     const userExpenseOwedBy = await User.findById(req.body.owedBy)
+<<<<<<< HEAD
+    console.log('owed by', userExpenseOwedBy)
+=======
+>>>>>>> development
     userExpensePaidBy.friends.map(friend => {
       if (JSON.stringify(friend.user) === JSON.stringify(userExpenseOwedBy.id) && friend.accepted === false) { // ! Need to build out function so if users do not exist AT ALL in friend array, expense can not be created
         throw new Error() // * Want error message displayed to clearly state it's because you are not confirmed friends

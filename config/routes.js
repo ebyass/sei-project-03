@@ -36,6 +36,7 @@ router.route('/users/:id/friends/requests')
 	
 router.route('/users/:id/friends/requests/:requestId')
   .put(secureRoute, users.friendRequestAccept)
+  .delete(secureRoute, users.rejectRequest)
 
 router.route('/users/:id/balance')
   .get(balance.show)
