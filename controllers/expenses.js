@@ -14,18 +14,22 @@ async function expensesIndex(req, res) {
 async function expensesCreate(req, res) {
   try {
     const userExpensePaidBy = await User.findById(req.body.paidBy)
-    console.log('paid by', userExpensePaidBy)
     const userExpenseOwedBy = await User.findById(req.body.owedBy)
+<<<<<<< HEAD
     console.log('owed by', userExpenseOwedBy)
+=======
+>>>>>>> development
     userExpensePaidBy.friends.map(friend => {
-      if (JSON.stringify(friend.user) !== JSON.stringify(userExpenseOwedBy._id) /*|| (JSON.stringify(friend.accepted) === false ) */ ) throw new Error()
+      if (JSON.stringify(friend.user) === JSON.stringify(userExpenseOwedBy.id) && friend.accepted === false) {
+        throw new Error() // * Want error message displayed to clearly state it's because you are not friends
+      }
     })
-    console.log('trueee')
     const createdExpense = await Expense.create(req.body)
-    console.log('createdExpense', createdExpense)
     const expenseId = await createdExpense._id
-    console.log('expenseId', expenseId)
-
+    userExpensePaidBy.expenses.push({ expenseId: expenseId })
+    userExpenseOwedBy.expenses.push({ expenseId: expenseId })
+    userExpensePaidBy.save()
+    userExpenseOwedBy.save()
     res.status(201).json(createdExpense)
   } catch (err) {
     res.status(422).json(err)

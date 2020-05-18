@@ -110,7 +110,7 @@ async function removeFriend(userFriend, userId) {
   }
 }
 
-async function confirmFriendRequest (req, res) {
+async function confirmFriendRequest (req, res, next) {
   try {
     const userId = req.params.id
     const requestId = req.params.requestId
@@ -125,7 +125,7 @@ async function confirmFriendRequest (req, res) {
     await user.save()
     res.status(202).json(user)
   } catch (err) {
-    console.log(err)
+    next(err)
   }
 }
 

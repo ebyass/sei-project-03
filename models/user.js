@@ -7,6 +7,9 @@ const friendsSchema = new mongoose.Schema({
   firstName: { type: String, ref: 'User' }
 })
 
+const referenceExpenseSchema = new mongoose.Schema({
+  expenseId: { type: mongoose.Schema.ObjectId, ref: 'Expense' }
+})
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
@@ -18,7 +21,7 @@ const userSchema = new mongoose.Schema({
   image: { type: String },
   balance: { type: Number, default: 0 },
   friends: [friendsSchema],
-  expenses: [{ type: mongoose.Schema.ObjectId, ref: 'Expense' }]
+  expenses: [referenceExpenseSchema]
 }, 
 { timestamps: true })
 
