@@ -98,7 +98,7 @@ async function confirmFriendRequest (req, res, next) {
     
     res.status(202).json(user)
   } catch (err) {
-    console.log(err)
+    next(err)
   }
 }
 

@@ -3,6 +3,7 @@ const auth = require('../controllers/auth')
 const users = require('../controllers/users')
 const secureRoute = require('../lib/secureRoute')
 const expenses = require('../controllers/expenses')
+const balance = require('../controllers/balances')
 
 router.route('/expenses')
   .get(expenses.index)
@@ -33,6 +34,12 @@ router.route('/users/:id/friends/requests')
 	
 router.route('/users/:id/friends/requests/:requestId')
   .put(secureRoute, users.friendRequestAccept)
+
+router.route('/users/:id/balance')
+  .get(balance.show)
+  .put(balance.change)
+
+router.route('/users/:id')
 	
 
 module.exports = router
