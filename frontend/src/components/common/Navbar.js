@@ -1,14 +1,16 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { isAuthenticated, logout } from '../../lib/_auth'
+import { isAuthenticated, logout, getPayload } from '../../lib/_auth'
 
 class Navbar extends React.Component {
 
-	state = { isOpen: false }
+  state = { isOpen: false }
+  
 
 	handleToggle = () => {
 		this.setState({ isOpen: !this.state.isOpen })
-	}
+  }
+  
 
 	handleLogout = () => {
 		logout()
@@ -24,6 +26,7 @@ class Navbar extends React.Component {
 
 	render() {
 		const { isOpen } = this.state
+		const userId = getPayload().sub
 		return (
 			<nav className="navbar is-link">
 				<div className="container">
@@ -37,12 +40,13 @@ class Navbar extends React.Component {
 					</div>
 					<div className={`navbar-menu ${isOpen ? 'is-active' : ''}`}>
 						<div className="navbar-end">
-							<Link to="/register" className="navbar-item">Register</Link>
-							<Link to="/login" className="navbar-item">Login</Link>
+							{!isAuthenticated() && <Link to="/register" className="navbar-item">Register</Link>}
+							{!isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
 							{isAuthenticated() && <Link to="/user/:id/friends" className="navbar-item">Newsfeed</Link>}
-							{isAuthenticated() && <Link to="/" className="navbar-item">Friends</Link>}
+							{isAuthenticated() && <Link to={`/users/${userId}/friends`} className="navbar-item">Friends</Link>}
+							{isAuthenticated() && <Link to="/search" className="navbar-item">Search</Link>}
 							{isAuthenticated() && <Link to="/" className="navbar-item">Expenses</Link>}
-							{isAuthenticated() && <Link to="/" className="navbar-item">Account</Link>}
+							{isAuthenticated() && <Link to={`/users/${userId}`}className="navbar-item">Account</Link>}
 							{isAuthenticated() && <span onClick={this.handleLogout} className="navbar-item Logout">Logout</span>}
 						</div>
 					</div>

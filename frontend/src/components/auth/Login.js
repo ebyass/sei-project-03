@@ -1,6 +1,6 @@
 import React from 'react'
 import { loginUser } from '../../lib/api'
-import { setToken } from '../../lib/_auth'
+import { setToken, getPayload } from '../../lib/_auth'
 
 
 class Login extends React.Component {
@@ -20,11 +20,13 @@ class Login extends React.Component {
     try {
       const res = await loginUser(this.state.formData)
       setToken(res.data.token)
-      this.props.history.push('/') //* <-- this will need to change - newsfeed maybe??
+      const userId = getPayload().sub
+      this.props.history.push(`/users/${userId}`) //* <-- this will need to change - newsfeed maybe??
     } catch (err) {
       this.setState({ error: 'Invalid Credentials' })
     }
   }
+  
   render() {
     const { formData, error } = this.state
     return (

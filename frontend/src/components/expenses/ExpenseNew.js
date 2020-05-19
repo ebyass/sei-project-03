@@ -1,10 +1,12 @@
 import React from 'react'
-import { createExpense } from '../../lib/api'
+import { createExpense, getUserFriends } from '../../lib/api'
+import { getPayload } from '../../lib/_auth'
 
 
 
 class ExpenseNew extends React.Component {
   state = {
+    friends: [],
     formData: {
       name: '',
       category: '',
@@ -15,6 +17,18 @@ class ExpenseNew extends React.Component {
       amountOwed: '',
     }
   }
+
+  async componentDidMount() {
+		try {
+      const expenseCreatorId = getPayload().sub
+      console.log('got the following id', expenseCreatorId)
+      const res = await getUserFriends(expenseCreatorId)
+      this.setState({ friends: res.data })
+      console.log(this.state)
+		} catch (err) {
+			console.log(err.message)
+		}
+	}
 
   handleChange = event => {
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
@@ -38,6 +52,7 @@ class ExpenseNew extends React.Component {
         <div className="container">
           <div className="columns">
             <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
+              <label className="label">Between Me and</label>
               <div className="field">
                 <label className="label">Name</label>
                 <div className="control">
@@ -58,7 +73,7 @@ class ExpenseNew extends React.Component {
                     onChange={this.handleChange} 
                     value={this.state.formData.category}
                   >
-                    <option disable value=""></option>
+                    <option disable="true" value=""></option>
                     <option value="transport">Transport</option>
                     <option value="accomodation">Accomodation</option>
                     <option value="eating out">Eating Out</option>

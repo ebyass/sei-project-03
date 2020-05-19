@@ -5,30 +5,27 @@ import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Navbar from './components/common/Navbar'
 import Home from './components/common/Home'
-import ExpenseNew from './components/expenses/ExpenseNew'
+import UserShow from './components/users/UserShow'
+import SearchIndex from './components/friends/SearchIndex'
+import FriendSearch from './components/friends/FriendSearch'
+import ExpensesNew from './components/expenses/ExpenseNew'
 
-class App extends React.Component {
-
-  async componentDidMount() {
-    const res = await fetch('/api/users')
-    console.log('Fetched the data')
-    const data = await res.json()
-    console.log(data)
-  }
-
-  render() {
-    return (
-<BrowserRouter>
-<Navbar />
-<Switch>
-<Route exact path="/" component={Home} />
-<Route path="/register" component={Register} />
-<Route path="/login" component={Login} />
-<Route path="/expenses/new" component={ExpenseNew} />
-</Switch>
-</BrowserRouter>
-    )
-  }
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/user/:id/friends" component={FriendSearch} />
+        <Route path="/users/:id" component={UserShow} />
+        <Route path="/search" component={SearchIndex} />
+        
+        <Route path="/expenses/new" component={ExpensesNew} />
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
-export default App
+  export default App

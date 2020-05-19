@@ -22,7 +22,7 @@ export const logout = () => {
 }
 
 
-const getPayload = () => { 
+export const getPayload = () => { 
   const token = getToken()
   if (!token) return false
   const parts = token.split('.')
@@ -41,9 +41,7 @@ export const isOwner = id => {
 
 }
 
-
 export const isAuthenticated = () => {
-  console.log('Authenticating function')
   const payload = getPayload()
   if (!payload) return false
   const now = Math.round(Date.now() / 1000) 
