@@ -144,7 +144,7 @@ async function friendToUpdate(friendId, user) {
   }
 }
 
-async function showAllFriends() {
+async function showAllFriends(req) {
   try {
     const userId = req.params.id
     const user = await User.findById(userId)
