@@ -6,6 +6,7 @@ import Login from './components/auth/Login'
 import Navbar from './components/common/Navbar'
 import Home from './components/common/Home'
 import UserShow from './components/users/UserShow'
+import UserUpdate from './components/users/UserUpdate'
 import SearchIndex from './components/friends/SearchIndex'
 import FriendSearch from './components/friends/FriendSearch'
 import ExpensesNew from './components/expenses/ExpenseNew'
@@ -18,7 +19,8 @@ const App = () => {
         <Route exact path="/" component={Home} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
-        <Route path="/user/:id/friends" component={FriendSearch} />
+        <Route path="/users/:id/friends" component={FriendSearch} />
+        <Route path="/users/:id/update" component={UserUpdate} />
         <Route path="/users/:id" component={UserShow} />
         <Route path="/search" component={SearchIndex} />
         

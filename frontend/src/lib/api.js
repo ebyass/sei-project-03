@@ -37,9 +37,12 @@ export const createExpense = formData => {
 	}
 }
 
-
 export const getSingleUser = id => {
   return axios.get(`${baseUrl}/users/${id}`, withHeaders() )
+}
+
+export const editUser = (id, formData) => {
+  return axios.put(`${baseUrl}/users/${id}`, withHeaders())
 }
 
 export const getAllUsers = () => {
