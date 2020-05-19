@@ -30,11 +30,11 @@ router.route('/users/:id')
   .put(users.update)
   .delete(users.delete)
 
-router.route('users/:id/friends')
-  .get(users.showAllFriends) //* <-- need to get all friends
+// router.route('users/:id/friends')
+//   .get(users.showAllFriends) //* <-- need to get all friends
   
-router.route('/user/:id/friends')
-  .get(secureRoute, users.showUserFriends)
+router.route('/users/:id/friends')
+  .get(secureRoute, users.showUserFriends) //* <-- Just added an s in users 
 
 router.route('/users/:id/friends/requests')
   .get(users.friendRequestsShow)
@@ -48,7 +48,7 @@ router.route('/users/:id/balance')
   .get(balance.show)
   .put(balance.change)
 
-router.route('/users/:id')
+
 	
 
 module.exports = router

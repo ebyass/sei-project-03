@@ -144,13 +144,14 @@ async function friendToUpdate(friendId, user) {
   }
 }
 
-async function showAllFriends() {
+async function showAllFriends(req, res) {
   try {
     const userId = req.params.id
     const user = await User.findById(userId)
-    user.friends.map(friend => {
+    const friends = user.friends.map(friend => {
       return friend
     })
+    res.status(202).json(friends)
   } catch (err) {
     console.log(err.message)
   }
