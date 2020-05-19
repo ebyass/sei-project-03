@@ -2,28 +2,29 @@ import React from 'react'
 import { createExpense, getUserFriends } from '../../lib/api'
 import { getPayload } from '../../lib/_auth'
 
-
-
 class ExpenseNew extends React.Component {
   state = {
     friends: [],
+    expenseCreatorId: '',
+    expenseOtherUserId: '',
+    otherUserName: '',
+    paymentSplit: 'equal split creator owed',
     formData: {
       name: '',
       category: '',
-      totalCost: '',
+      totalCost: 0,
       dueDate: '',
       paidBy: '',
       owedBy: '',
-      amountOwed: '',
+      amountOwed: 0,
     }
   }
 
   async componentDidMount() {
 		try {
       const expenseCreatorId = getPayload().sub
-      console.log('got the following id', expenseCreatorId)
       const res = await getUserFriends(expenseCreatorId)
-      this.setState({ friends: res.data })
+      this.setState({ friends: res.data, expenseCreatorId })
       console.log(this.state)
 		} catch (err) {
 			console.log(err.message)
@@ -32,8 +33,67 @@ class ExpenseNew extends React.Component {
 
   handleChange = event => {
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
-    this.setState({ formData })
+    this.setState({ formData }, this.finalizeAmountOwed)
   }
+
+  handleUserChange = event => {
+    this.setState({ expenseOtherUserId: event.target.value }, this.populateOtherName)
+  }
+
+  handleSplitChange = event => {
+    this.setState({ paymentSplit: event.target.value }, this.finalizeAmountOwed)
+  }
+
+  finalizeAmountOwed = () => {
+    if (this.state.paymentSplit === 'equal split creator owed') {
+      const amountOwed = this.state.formData.totalCost / 2
+      this.setState({ 
+        formData: {
+          ...this.state.formData,
+          paidBy: this.state.expenseCreatorId,
+          owedBy: this.state.expenseOtherUserId,
+          amountOwed
+        }
+    })
+  } else if (this.state.paymentSplit === 'creator is owed total') {
+    const amountOwed = this.state.formData.totalCost
+    this.setState({ 
+      formData: {
+        ...this.state.formData,
+        paidBy: this.state.expenseCreatorId,
+        owedBy: this.state.expenseOtherUserId,
+        amountOwed
+      }
+    })
+  } else if (this.state.paymentSplit === 'equal split other owed') {
+    const amountOwed = this.state.formData.totalCost / 2
+    this.setState({ 
+      formData: {
+        ...this.state.formData,
+        paidBy: this.state.expenseOtherUserId,
+        owedBy: this.state.expenseCreatorId,
+        amountOwed
+      }
+    })
+  } else if (this.state.paymentSplit === 'other is owed total') {
+    const amountOwed = this.state.formData.totalCost
+    this.setState({ 
+      formData: {
+        ...this.state.formData,
+        paidBy: this.state.expenseOtherUserId,
+        owedBy: this.state.expenseCreatorId,
+        amountOwed
+      }
+    })
+  }
+  }
+
+  populateOtherName = () => {
+    const index = this.state.friends.findIndex(x => x.user === this.state.expenseOtherUserId)
+    const name = this.state.friends[index].firstName
+    this.setState({ otherUserName: name })
+  }
+
 
   handleSubmit = async event => {
     event.preventDefault()
@@ -53,6 +113,16 @@ class ExpenseNew extends React.Component {
           <div className="columns">
             <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
               <label className="label">Between Me and</label>
+              <select
+                name="expenseOtherUserId"
+                onChange={this.handleUserChange}
+                value={this.state.expenseOtherUserId}
+              >
+                <option disable="true" value=""></option>
+                {this.state.friends.map(friend => (
+                  <option value={friend.user}>{friend.firstName}</option>
+                ))}
+                </select>
               <div className="field">
                 <label className="label">Name</label>
                 <div className="control">
@@ -109,43 +179,24 @@ class ExpenseNew extends React.Component {
                 </div>
               </div>
               <div className="field">
-                <label className="label">Expense paid by</label>
+                <label className="label">Payment Split</label>
                 <div className="control">
-                  <input
-                    className="input"
-                    placeholder="Expense paid by"
-                    name="paidBy"
-                    onChange={this.handleChange}
-                    value={this.state.formData.paidBy}
-                  />
+                  <select
+                    name="paymentSplit" 
+                    onChange={this.handleSplitChange} 
+                    value={this.state.paymentSplit}
+                  >
+                    <option value="equal split creator owed">Paid by me and split equally</option>
+                    <option value="creator is owed total">I am owed the full amount</option>
+                    <option value="equal split other owed">Paid by friend and split equally</option>
+                    <option value="other is owed total">Friend is owed the full amount</option>
+                  </select>
                 </div>
               </div>
+              {(this.state.formData.amountOwed !== 0 && (this.state.paymentSplit === 'equal split creator owed' || this.state.paymentSplit === 'creator is owed total')) && <label className="label">{this.state.otherUserName} will owe you £{this.state.formData.amountOwed.toFixed(2)}</label>}
+              {(this.state.formData.amountOwed !== 0 && (this.state.paymentSplit === 'equal split other owed' || this.state.paymentSplit === 'other is owed total')) && <label className="label">You will owe {this.state.otherUserName} £{this.state.formData.amountOwed.toFixed(2)}</label>}
               <div className="field">
-                <label className="label">Expense owed by</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    placeholder="Expense owed by"
-                    name="owedBy"
-                    onChange={this.handleChange}
-                    value={this.state.formData.owedBy}
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <label className="label">Amount owed</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    placeholder="Expense owed by"
-                    name="amountOwed"
-                    onChange={this.handleChange}
-                    value={this.state.formData.amountOwed}
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <button type="submit" className="button is-fullwidth is-warning">Create New Expense</button>
+                <button type="submit" className="button is-fullwidth is-warning">Submit New Expense</button>
               </div>
             </form>
           </div>
@@ -153,9 +204,6 @@ class ExpenseNew extends React.Component {
       </section>
     )
   }
-
-
-
 }
 
 export default ExpenseNew
