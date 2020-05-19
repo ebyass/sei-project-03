@@ -1,7 +1,13 @@
 import axios from 'axios'
-// import { getToken } from './_auth'
+import { getToken } from './_auth'
 
 const baseUrl = '/api'
+
+const withHeaders = () => {
+  return {
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }
+}
 
 export const registerUser = formData => {
 	try {
@@ -21,5 +27,9 @@ export const loginUser = formData => {
 		console.log('login', err)
 	}
   
+}
+
+export const getSingleUser = id => {
+  return axios.get(`${baseUrl}/users/${id}`, withHeaders() )
 }
 

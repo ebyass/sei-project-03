@@ -1,14 +1,16 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { isAuthenticated, logout } from '../../lib/_auth'
+import { isAuthenticated, getPayload, logout } from '../../lib/_auth'
 
 class Navbar extends React.Component {
 
-	state = { isOpen: false }
+  state = { isOpen: false }
+  
 
 	handleToggle = () => {
 		this.setState({ isOpen: !this.state.isOpen })
-	}
+  }
+  
 
 	handleLogout = () => {
 		logout()
@@ -23,7 +25,8 @@ class Navbar extends React.Component {
 	}
 
 	render() {
-		const { isOpen } = this.state
+    const { isOpen } = this.state
+    const userId = getPayload().sub
 		return (
 			<nav className="navbar is-link">
 				<div className="container">
@@ -42,7 +45,7 @@ class Navbar extends React.Component {
 							{isAuthenticated() && <Link to="/user/:id/friends" className="navbar-item">Newsfeed</Link>}
 							{isAuthenticated() && <Link to="/" className="navbar-item">Friends</Link>}
 							{isAuthenticated() && <Link to="/" className="navbar-item">Expenses</Link>}
-							{isAuthenticated() && <Link to="/" className="navbar-item">Account</Link>}
+							{isAuthenticated() && <Link to={`/users/${userId}`}className="navbar-item">Account</Link>}
 							{isAuthenticated() && <span onClick={this.handleLogout} className="navbar-item Logout">Logout</span>}
 						</div>
 					</div>
