@@ -29,7 +29,10 @@ router.route('/users/:id')
   .get(users.show)
   .put(users.update)
   .delete(users.delete)
-	
+
+router.route('users/:id/friends')
+  .get(users.showAllFriends) //* <-- need to get all friends 
+
 router.route('/users/:id/friends/requests')
   .get(users.friendRequestsShow)
   .post(secureRoute, users.friendRequestCreate)

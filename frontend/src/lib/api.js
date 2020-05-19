@@ -33,3 +33,10 @@ export const getSingleUser = id => {
   return axios.get(`${baseUrl}/users/${id}`, withHeaders() )
 }
 
+export const getAllUsers = () => {
+	return axios.get(`${baseUrl}/users`)
+}
+
+export const getAllFriends = userId => {
+	return axios.get(`${baseUrl}/users/${userId}/friends`, withHeaders())
+}
