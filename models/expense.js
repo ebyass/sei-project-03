@@ -13,7 +13,7 @@ const expenseSchema = new mongoose.Schema({
   },
   paidBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   owedBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
-  amountOwed: { type: Number },
+  amountOwed: { type: Number, required: true },
   accepted: { type: Boolean, default: false },
   settled: { type: Boolean, default: false }
 }, {

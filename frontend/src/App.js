@@ -5,6 +5,7 @@ import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Navbar from './components/common/Navbar'
 import Home from './components/common/Home'
+import ExpenseNew from './components/expenses/ExpenseNew'
 
 class App extends React.Component {
 
@@ -23,6 +24,7 @@ class App extends React.Component {
 <Route exact path="/" component={Home} />
 <Route path="/register" component={Register} />
 <Route path="/login" component={Login} />
+<Route path="/expenses/new" component={ExpenseNew} />
 </Switch>
 </BrowserRouter>
     )
