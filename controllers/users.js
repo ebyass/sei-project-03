@@ -144,7 +144,17 @@ async function friendToUpdate(friendId, user) {
   }
 }
 
-
+async function showAllFriends() {
+  try {
+    const userId = req.params.id
+    const user = await User.findById(userId)
+    user.friends.map(friend => {
+      return friend
+    })
+  } catch (err) {
+    console.log(err.message)
+  }
+}
 
 module.exports = {
   index: usersIndex,
@@ -154,5 +164,6 @@ module.exports = {
   friendRequestsShow: userFriendRequestsShow,
   friendRequestCreate: userFriendRequestCreate,
   friendRequestAccept: confirmFriendRequest,
-  rejectRequest: rejectFriendRequest
+  rejectRequest: rejectFriendRequest,
+  showAllFriends: showAllFriends
 }

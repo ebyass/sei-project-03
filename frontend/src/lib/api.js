@@ -1,7 +1,13 @@
 import axios from 'axios'
-// import { getToken } from './_auth'
+import { getToken } from './_auth'
 
 const baseUrl = '/api'
+
+const withHeaders = () => {
+  return {
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }
+}
 
 export const registerUser = formData => {
 	try {
@@ -23,3 +29,14 @@ export const loginUser = formData => {
   
 }
 
+export const getSingleUser = userId => {
+	return axios.get(`${baseUrl}/users/${userId}`)
+}
+
+export const getAllUsers = () => {
+	return axios.get(`${baseUrl}/users`)
+}
+
+export const getAllFriends = userId => {
+	return axios.get(`${baseUrl}/users/${userId}/friends`, withHeaders())
+}

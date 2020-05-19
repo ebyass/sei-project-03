@@ -5,6 +5,8 @@ import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Navbar from './components/common/Navbar'
 import Home from './components/common/Home'
+import SearchIndex from './components/friends/SearchIndex'
+import FriendSearch from './components/friends/FriendSearch'
 
 class App extends React.Component {
 
@@ -23,6 +25,8 @@ class App extends React.Component {
 <Route exact path="/" component={Home} />
 <Route path="/register" component={Register} />
 <Route path="/login" component={Login} />
+<Route path="/search" component={SearchIndex} />
+<Route path="/user/:id/friends" component={FriendSearch} />
 </Switch>
 </BrowserRouter>
     )
