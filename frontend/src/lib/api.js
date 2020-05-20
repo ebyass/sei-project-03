@@ -42,7 +42,11 @@ export const getSingleUser = id => {
 }
 
 export const editUser = (id, formData) => {
-  return axios.put(`${baseUrl}/users/${id}`, withHeaders())
+  return axios.put(`${baseUrl}/users/${id}`, formData, withHeaders())
+}
+
+export const changeBalance = (id, requestData) => {
+  return axios.put(`${baseUrl}/users/${id}/balance`, requestData, withHeaders())
 }
 
 export const getAllUsers = () => {

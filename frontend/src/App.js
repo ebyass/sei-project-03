@@ -7,6 +7,7 @@ import Navbar from './components/common/Navbar'
 import Home from './components/common/Home'
 import UserShow from './components/users/UserShow'
 import UserUpdate from './components/users/UserUpdate'
+import UserBank from './components/users/UserBank'
 import SearchIndex from './components/friends/SearchIndex'
 import FriendSearch from './components/friends/FriendSearch'
 import ExpensesNew from './components/expenses/ExpenseNew'
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/users/:id/update" component={UserUpdate} />
+        <Route path="/users/:id/bank" component={UserBank} />
         <Route path="/users/:id" component={UserShow} />
         <Route path="/search" component={SearchIndex} />
         <Route path="/expenses/new" component={ExpensesNew} />

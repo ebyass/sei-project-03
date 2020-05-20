@@ -7,7 +7,7 @@ async function balanceShow (req, res) {
     if (!user) throw new Error()
     res.status(200).json(user.balance)
   } catch (err) {
-    res.status(422).json(err)
+    res.status(404).json(err)
   }
 } 
 
@@ -19,15 +19,16 @@ async function changeBalance (req, res) {
     const user = await User.findById(userId)
     if (!user) throw new Error()
     if (operation === 'increase') {
-      user.balance = user.balance + amount
+      user.balance = user.balance + Number(amount)
     } 
+    if (user.balance < amount) throw new Error()
     if (operation === 'decrease') {
-      user.balance = user.balance - amount
+      user.balance = user.balance - Number(amount)
     }
     await user.save()
     res.status(200).json(user)
   } catch (err) {
-    res.status(422).json(err)
+    res.status(401).json({ message: 'Not enough money in account' })
   }
 }
 

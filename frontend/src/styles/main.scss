@@ -1,1 +1,49 @@
+// ? 🌍 Global styling
+// * Brand colours
+// Blue - #3C91E6
+// Light grey - #E9E5E8
+// White - #FFFFFF
+// Black - #00171F
+
+// * Fonts
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:ital,wght@0,300;0,500;0,600;1,400&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+  color: #00171F;
+}
+
+body {
+  margin: 0;
+}
+
+// * Nav bar
+nav.navbar {
+  background-color: #3C91E6;
+  .logo h1 {
+    color: #FFF;
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+  }
+  .navbar-menu {
+    background-color: #57a5f3;
+  }
+}
+
+// * Home page
+section.hero {
+  background-color: #E9E5E8;
+  div.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 50vw;
+  }
+  h1 {
+    font-size: 36px;
+
+  }
+}
+
+
 @import '~bulma/bulma.sass';

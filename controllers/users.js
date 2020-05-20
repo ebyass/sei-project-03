@@ -27,7 +27,8 @@ async function userUpdate (req, res, next) {
     const user = await User.findByIdAndUpdate(
       userId,
       req.body,
-      { new: true, runValidators: true }
+      { new: true }
+      // runValidators: true }
     )
     res.status(202).json(user)
   } catch (err) {

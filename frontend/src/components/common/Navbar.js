@@ -31,7 +31,7 @@ class Navbar extends React.Component {
 			<nav className="navbar is-link">
 				<div className="container">
 					<div className="navbar-brand">
-						<Link to="/" className="navbar-item">Accountable</Link>
+						<Link to="/" className="navbar-item logo"><h1>Accountable</h1></Link>
 						<span onClick={this.handleToggle} className={`navbar-burger ${isOpen ? 'is-active' : ''}`}>
 							<span aria-hidden="true"></span>
 							<span aria-hidden="true"></span>
@@ -42,7 +42,7 @@ class Navbar extends React.Component {
 						<div className="navbar-end">
 							{!isAuthenticated() && <Link to="/register" className="navbar-item">Register</Link>}
 							{!isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
-							{isAuthenticated() && <Link to="/users/:id/friends" className="navbar-item">Newsfeed</Link>}
+							{/* {isAuthenticated() && <Link to="/users/:id/friends" className="navbar-item">Newsfeed</Link>} */}
 							{isAuthenticated() && <Link to={`/users/${userId}/search/friends`} className="navbar-item">Friends</Link>}
 							{isAuthenticated() && <Link to={`/users/${userId}/friends/requests`} className="navbar-item">Requests</Link>}
 							{isAuthenticated() && <Link to="/search" className="navbar-item">Search</Link>}
