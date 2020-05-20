@@ -9,6 +9,8 @@ import UserShow from './components/users/UserShow'
 import SearchIndex from './components/friends/SearchIndex'
 import FriendSearch from './components/friends/FriendSearch'
 import ExpensesNew from './components/expenses/ExpenseNew'
+import ExpensesIndex from './components/expenses/ExpensesIndex'
+import ExpensesRequestIndex from './components/expenses/ExpensesRequestIndex'
 
 const App = () => {
   return (
@@ -19,6 +21,9 @@ const App = () => {
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/user/:id/friends" component={FriendSearch} />
+        <Route path="/users/expenses/pending" component={ExpensesRequestIndex} />
+        <Route path="/users/expenses" component={ExpensesIndex} />
+        
         <Route path="/users/:id" component={UserShow} />
         <Route path="/search" component={SearchIndex} />
         

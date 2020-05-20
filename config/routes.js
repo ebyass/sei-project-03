@@ -16,6 +16,24 @@ router.route('/expenses/:id')
   .put(secureRoute, expenses.accept)
   .patch(secureRoute, expenses.settle)
 
+router.route('/users/expenses/owedto')
+  .get(secureRoute, expenses.owedToExpenses)
+
+router.route('/users/expenses/owedby')
+  .get(secureRoute, expenses.owedByExpenses)
+
+router.route('/users/expenses/requests/owedto')
+  .get(secureRoute, expenses.pendingExpensesToUser)
+
+router.route('/users/expenses/requests/owedby')
+  .get(secureRoute, expenses.pendingExpensesToAccept)
+
+router.route('/users/expenses/settled/owedto')
+  .get(secureRoute, expenses.userSettledWithExpenses)
+
+router.route('/users/expenses/settled/owedby')
+  .get(secureRoute, expenses.userSettledExpenses)
+
 router.route('/register')
   .post(auth.register)
 	
