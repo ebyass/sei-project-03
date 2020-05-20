@@ -4,7 +4,8 @@ import { getToken } from './_auth'
 const baseUrl = '/api'
 const withHeaders = () => {
   return {
-    headers: { Authorization: `Bearer ${getToken()}` }
+		headers: { Authorization: `Bearer ${getToken()}` }
+		
   }
 }
 
@@ -38,11 +39,11 @@ export const createExpense = formData => {
 }
 
 export const getSingleUser = id => {
-  return axios.get(`${baseUrl}/users/${id}`, withHeaders() )
+  return axios.get(`${baseUrl}/users/${id}`, id, withHeaders() )
 }
 
 export const editUser = (id, formData) => {
-  return axios.put(`${baseUrl}/users/${id}`, withHeaders())
+  return axios.put(`${baseUrl}/users/${id}`, id, withHeaders())
 }
 
 export const getAllUsers = () => {
@@ -50,5 +51,11 @@ export const getAllUsers = () => {
 }
 
 export const getUserFriends = userId => {
-  return axios.get(`${baseUrl}/user/${userId}/friends`, withHeaders())
+  return axios.get(`${baseUrl}/users/${userId}/friends`, withHeaders())
+}
+
+export const sendFriendRequest = userId => {
+	console.log(withHeaders())
+		return axios.post(`${baseUrl}/users/${userId}/friends/requests`, userId, withHeaders())
+	
 }

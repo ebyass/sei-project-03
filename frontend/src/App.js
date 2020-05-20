@@ -18,14 +18,15 @@ const App = () => {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
-				<Route path="/users/:id/search/friends" component={FriendSearch} />
-				<Route path="/users/:id/friends/requests" component={ShowFriendRequests}/>
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
+				<Route path="/users/friends/requests/pending" component={ShowFriendRequests}/>
+
+				{/* <Route path="/users/:id/search/friends" component={FriendSearch} /> */}
+        <Route path="/users/friends/requests" component={SearchIndex} />
+				<Route path="/users/:id" component={UserShow} />
         <Route path="/users/:id/update" component={UserUpdate} />
-        <Route path="/users/:id" component={UserShow} />
-        <Route path="/search" component={SearchIndex} />
         <Route path="/expenses/new" component={ExpensesNew} />
+				<Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
       </Switch>
     </BrowserRouter>
   )
