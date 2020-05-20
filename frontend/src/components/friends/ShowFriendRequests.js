@@ -29,6 +29,7 @@ class ShowFriendsRequests extends React.Component {
 			const requestId = event.target.value
 			const res = await acceptFriendRequest(userId, requestId)
 			console.log('res', res.data)
+			window.location.reload()
 		} catch (err) {
 			console.log(err.message)
 		}
@@ -42,6 +43,7 @@ class ShowFriendsRequests extends React.Component {
 			const requestId = event.target.value
 			const res = await rejectFriendRequest(userId, requestId)
 			console.log('res', res.data)
+			window.location.reload()
 		} catch (err) {
 			console.log(err.message)
 		}
@@ -62,11 +64,11 @@ class ShowFriendsRequests extends React.Component {
 								onClick={this.handleAccept}
 								name='acceptRequest'
 								value={friend._id}
-								>Accept</button>
+						>Accept</button>
 								<button onClick={this.handleReject}
 								name='rejectRequest'
 								value={friend._id}
-								>Reject</button>
+						>Reject</button>
 								{/* <button>Pending</button> */}
 							</div>
 						))}

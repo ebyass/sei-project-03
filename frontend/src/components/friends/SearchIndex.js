@@ -71,12 +71,11 @@ class SearchIndex extends React.Component {
 									{this.filteredUsers().map(user => (
 										<div>
 											<p>{user.firstName} {user.lastName}</p>
-											<p>{user.email}</p>
 											<p>{user.image}</p>
 											<button
-												key={user.id}
+												key={user._id}
 												name='sendRequestButton'
-												value={user.id}
+												value={user._id}
 												onClick={this.handleClick}
 											>Send Request</button>
 										</div>
