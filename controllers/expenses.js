@@ -124,6 +124,96 @@ async function expenseSettle(req, res) {
   }
 }
 
+async function expensesOwedToUser(req, res) { // * To populate ACCEPTED expenses owed to user
+  const userId = JSON.stringify(req.currentUser._id)
+  try {
+    const allExpenses = await Expense.find()
+    const filteredExpenses = allExpenses.filter((expense) => {
+      return JSON.stringify(expense.paidBy) === userId &&
+              expense.accepted === true &&
+              expense.settled === false
+    })
+    res.status(200).json(filteredExpenses)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
+
+async function expensesUserOwe(req, res) { // * To populate ACCEPTED expenses owed by user
+  const userId = JSON.stringify(req.currentUser._id)
+  try {
+    const allExpenses = await Expense.find()
+    const filteredExpenses = allExpenses.filter((expense) => {
+      return JSON.stringify(expense.owedBy) === userId &&
+              expense.accepted === true &&
+              expense.settled === false
+    })
+    res.status(200).json(filteredExpenses)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
+
+
+async function expensesToAcceptUserOwe(req, res) { // * To populate PENDING expenses owed by user
+  const userId = JSON.stringify(req.currentUser._id)
+  try {
+    const allExpenses = await Expense.find()
+    const filteredExpenses = allExpenses.filter((expense) => {
+      return JSON.stringify(expense.owedBy) === userId &&
+              expense.accepted === false
+    })
+    res.status(200).json(filteredExpenses)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
+
+async function pendingExpensesOwedToUser(req, res) { // * To populate PENDING expenses owed to user
+  const userId = JSON.stringify(req.currentUser._id)
+  try {
+    const allExpenses = await Expense.find()
+    const filteredExpenses = allExpenses.filter((expense) => {
+      return JSON.stringify(expense.paidBy) === userId &&
+              expense.accepted === false
+    })
+    res.status(200).json(filteredExpenses)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
+
+async function settledExpensesOwedByUser(req, res) { // * To populate SETTLED expenses paid by user
+  const userId = JSON.stringify(req.currentUser._id)
+  try {
+    const allExpenses = await Expense.find()
+    const filteredExpenses = allExpenses.filter((expense) => {
+      return JSON.stringify(expense.owedBy) === userId &&
+              expense.settled === true
+    })
+    res.status(200).json(filteredExpenses)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
+
+async function settledExpensesOwedToUser(req, res) { // * To populate SETTLED expenses owed to user
+  const userId = JSON.stringify(req.currentUser._id)
+  try {
+    console.log('reaching here')
+    console.log(typeof(userId))
+    const allExpenses = await Expense.find()
+    const filteredExpenses = allExpenses.filter((expense) => {
+      return JSON.stringify(expense.paidBy) === userId &&
+              expense.settled === true
+    })
+    console.log(filteredExpenses)
+    res.status(200).json(filteredExpenses)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
+
 
 
 module.exports = {
@@ -133,5 +223,11 @@ module.exports = {
   update: expensesUpdate,
   delete: expensesDelete,
   accept: expenseAccept,
-  settle: expenseSettle
+  settle: expenseSettle,
+  owedToExpenses: expensesOwedToUser,
+  owedByExpenses: expensesUserOwe,
+  pendingExpensesToAccept: expensesToAcceptUserOwe,
+  pendingExpensesToUser: pendingExpensesOwedToUser,
+  userSettledExpenses: settledExpensesOwedByUser,
+  userSettledWithExpenses: settledExpensesOwedToUser
 }

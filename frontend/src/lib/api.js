@@ -68,3 +68,35 @@ export const rejectFriendRequest = (userId, requestId) => {
 	console.log('Reject userId', userId, 'requestId', requestId)
 	return axios.delete(`${baseUrl}/users/${userId}/friends/requests/${requestId}`, withHeaders())
 }
+
+export const getExpensesOwedByUser = () => {
+  return axios.get(`${baseUrl}/users/expenses/owedby`, withHeaders())
+}
+
+export const getExpensesOwedToUser = () => {
+  return axios.get(`${baseUrl}/users/expenses/owedto`, withHeaders())
+}   
+
+export const getPendingExpensesToAccept = () => {
+  return axios.get(`${baseUrl}/users/expenses/requests/owedby`, withHeaders())
+}
+
+export const getPendingExpensesToUser = () => {
+  return axios.get(`${baseUrl}/users/expenses/requests/owedto`, withHeaders())
+}
+
+export const acceptPendingExpense = expenseId => {
+  return axios.put(`${baseUrl}/expenses/${expenseId}`, {}, withHeaders())
+}
+
+export const getSettledExpenses = () => {
+  return axios.get(`${baseUrl}/users/expenses/settled/owedby`, withHeaders())
+}
+
+export const getSettledWithExpenses = () => {
+  return axios.get(`${baseUrl}/users/expenses/settled/owedto`, withHeaders())
+}
+
+export const settleExpense = expenseId => {
+  return axios.patch(`${baseUrl}/expenses/${expenseId}`, {}, withHeaders())
+}
