@@ -41,12 +41,12 @@ export const getSingleUser = id => {
   return axios.get(`${baseUrl}/users/${id}`, withHeaders() )
 }
 
-export const getAllUsers = () => {
-	return axios.get(`${baseUrl}/users`)
+export const editUser = (id, formData) => {
+  return axios.put(`${baseUrl}/users/${id}`, withHeaders())
 }
 
-export const getAllFriends = userId => {
-	return axios.get(`${baseUrl}/users/${userId}/friends`, withHeaders())
+export const getAllUsers = () => {
+	return axios.get(`${baseUrl}/users`)
 }
 
 export const getUserFriends = userId => {

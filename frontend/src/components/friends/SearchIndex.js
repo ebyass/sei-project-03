@@ -26,7 +26,6 @@ class SearchIndex extends React.Component {
 	}
 	
 	filteredUsers = () => {
-		console.log('state', this.state)
 		const { users, searchTerm } = this.state
 		const regexp = new RegExp(searchTerm, 'i')
 		return users.filter(user => {

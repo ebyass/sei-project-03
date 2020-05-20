@@ -18,7 +18,6 @@ class UserShow extends React.Component {
   render() {
     if (!this.state.user) return null
     const { user } = this.state
-    console.log(user)
     return (
       <div>
         <div>
@@ -41,7 +40,7 @@ class UserShow extends React.Component {
             <img src="#" alt={`${user.firstName}'s profile`} />
             <h3>{user.firstName} {user.lastName}</h3>
             <p>{user.email}</p>
-            <span><Link to="/users/"></Link>Arrow</span>
+            <span><Link to={`/users/${user._id}/update`}>Arrow</Link></span>
           </div>
           <div>
             <h3>Notification</h3>
