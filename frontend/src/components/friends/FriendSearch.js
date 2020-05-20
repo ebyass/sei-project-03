@@ -45,6 +45,8 @@ class FriendSearch extends React.Component {
 	}
 
 
+
+
 	render() {
 		const { searchTerm } = this.state
 		return (

@@ -27,6 +27,7 @@ class Navbar extends React.Component {
 	render() {
 		const { isOpen } = this.state
 		const userId = getPayload().sub
+		// const friendId = req.params.id //! <--Need to sort this out 
 		return (
 			<nav className="navbar is-link">
 				<div className="container">
@@ -59,3 +60,6 @@ class Navbar extends React.Component {
 }
 
 export default withRouter(Navbar)
+
+
+
