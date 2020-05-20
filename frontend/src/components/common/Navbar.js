@@ -4,13 +4,13 @@ import { isAuthenticated, logout, getPayload } from '../../lib/_auth'
 
 class Navbar extends React.Component {
 
-  state = { isOpen: false }
-  
+	state = { isOpen: false }
+
 
 	handleToggle = () => {
 		this.setState({ isOpen: !this.state.isOpen })
-  }
-  
+	}
+
 
 	handleLogout = () => {
 		logout()
@@ -44,11 +44,11 @@ class Navbar extends React.Component {
 							{!isAuthenticated() && <Link to="/register" className="navbar-item">Register</Link>}
 							{!isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
 							{/* {isAuthenticated() && <Link to="/users/:id/friends" className="navbar-item">Newsfeed</Link>} */}
-							{isAuthenticated() && <Link to={`/users/${userId}/search/friends`} className="navbar-item">Friends</Link>}
-							{isAuthenticated() && <Link to={`/users/${userId}/friends/requests`} className="navbar-item">Requests</Link>}
+							{isAuthenticated() && <Link to={`/users/friends`} className="navbar-item">Friends</Link>}
+							{isAuthenticated() && <Link to={`/users/friends/requests/pending`} className="navbar-item">Requests</Link>}
 							{isAuthenticated() && <Link to="/search" className="navbar-item">Search</Link>}
 							{isAuthenticated() && <Link to="/" className="navbar-item">Expenses</Link>}
-							{isAuthenticated() && <Link to={`/users/${userId}`}className="navbar-item">Account</Link>}
+							{isAuthenticated() && <Link to={`/users/${userId}`} className="navbar-item">Account</Link>}
 							{isAuthenticated() && <span onClick={this.handleLogout} className="navbar-item Logout">Logout</span>}
 						</div>
 					</div>
