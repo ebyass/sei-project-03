@@ -57,5 +57,14 @@ export const getUserFriends = userId => {
 export const sendFriendRequest = userId => {
 	console.log(withHeaders())
 		return axios.post(`${baseUrl}/users/${userId}/friends/requests`, userId, withHeaders())
-	
+}
+
+export const acceptFriendRequest = (userId, requestId) => {
+	console.log('Accept userId', userId, 'requestId', requestId)
+	return axios.put(`${baseUrl}/users/${userId}/friends/requests/${requestId}`, requestId, withHeaders())
+}
+
+export const rejectFriendRequest = (userId, requestId) => {
+	console.log('Reject userId', userId, 'requestId', requestId)
+	return axios.delete(`${baseUrl}/users/${userId}/friends/requests/${requestId}`, withHeaders())
 }

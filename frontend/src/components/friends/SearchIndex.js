@@ -41,7 +41,7 @@ class SearchIndex extends React.Component {
 
 		try {
 			const res = await sendFriendRequest(userId)
-			console.log('res', res)
+			console.log('res', res.data)
 
 		} catch (err) {
 			console.log(err.message)
