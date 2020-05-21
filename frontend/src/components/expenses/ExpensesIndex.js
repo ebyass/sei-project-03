@@ -1,6 +1,7 @@
 import React from 'react'
 import { getExpensesOwedByUser, getExpensesOwedToUser, getUserFriends, getSettledExpenses, getSettledWithExpenses, settleExpense } from '../../lib/api'
 import { getPayload } from '../../lib/_auth'
+import { Link } from 'react-router-dom'
 
 class ExpensesIndex extends React.Component {
   state = {
@@ -38,13 +39,13 @@ class ExpensesIndex extends React.Component {
     return name
   }
 
-  handleAccept = async event => {
+  handleAccept = async event => { // * Need to bring in error validation/messaging (i.e. not enough balance etc.)
     const expenseId = event.target.value
     console.log(expenseId)
     try {
       const res = await settleExpense(expenseId)
       console.log(res)
-      this.props.history.push('/users/expenses')
+      window.location.reload()
     } catch (err) {
       console.log('no joy')
     }
@@ -53,30 +54,41 @@ class ExpensesIndex extends React.Component {
   render() {
     return (
       <section className="container">
+        <Link to="/users/expenses/new">Create New Expense</Link>
+        <br />
+        <Link to="/users/expenses/pending">View Pending Expenses</Link>
+        <br />
         <label>Owed by you</label>
         <hr />
         {this.state.expensesOwedByUser.map(expense => (
-          <label value={expense.user}>
+          <Link to={`/users/expenses/${expense._id}`}>
+            <label key={expense._id} value={expense.user}>
             You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}
-            <button value={expense._id} onClick={this.handleAccept}>Settle Expense</button>
+            <button key={expense._id} value={expense._id} onClick={this.handleAccept}>Settle Expense</button>
           <br />
           </label>
+          </Link> 
         ))}
         <label>Owed by friends</label>
         <hr />
         {this.state.expensesOwedToUser.map(expense => (
-          <label value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>         
+          <Link to={`/users/expenses/${expense._id}`}>
+            <label key={expense._id} value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
+          </Link>       
         ))}
         <label>Settled by you</label>
         <hr />
         {this.state.expensesSettledByUser.map(expense => (
-          <label value={expense.user}>You paid {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
-          
+          <Link to={`/users/expenses/${expense._id}`}>
+            <label key={expense._id} value={expense.user}>You paid {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
+          </Link>
         ))}
         <label>Settled by friends</label>
         <hr />
         {this.state.expensesSettledWithUser.map(expense => (
-          <label value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
+          <Link to={`/users/expenses/${expense._id}`}>
+            <label key={expense._id} value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
+          </Link>
           
         ))}
       </section>

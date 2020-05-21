@@ -104,3 +104,15 @@ export const getSettledWithExpenses = () => {
 export const settleExpense = expenseId => {
   return axios.patch(`${baseUrl}/expenses/${expenseId}`, {}, withHeaders())
 }
+
+export const deleteExpense = expenseId => {
+  return axios.delete(`${baseUrl}/expenses/${expenseId}`, withHeaders())
+}
+
+export const getUsersAndIds = () => {
+  return axios.get(`${baseUrl}/usersnames`)
+}
+
+export const getSingleExpense = expenseId => {
+  return axios.get(`${baseUrl}/expenses/${expenseId}`)
+}

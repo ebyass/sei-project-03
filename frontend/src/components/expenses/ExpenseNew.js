@@ -1,6 +1,7 @@
 import React from 'react'
 import { createExpense, getUserFriends } from '../../lib/api'
 import { getPayload } from '../../lib/_auth'
+import { Link } from 'react-router-dom'
 
 class ExpenseNew extends React.Component {
   state = {
@@ -52,7 +53,7 @@ class ExpenseNew extends React.Component {
           ...this.state.formData,
           paidBy: this.state.expenseCreatorId,
           owedBy: this.state.expenseOtherUserId,
-          amountOwed
+          amountOwed: amountOwed
         }
     })
   } else if (this.state.paymentSplit === 'creator is owed total') {
@@ -62,7 +63,7 @@ class ExpenseNew extends React.Component {
         ...this.state.formData,
         paidBy: this.state.expenseCreatorId,
         owedBy: this.state.expenseOtherUserId,
-        amountOwed
+        amountOwed: amountOwed
       }
     })
   } else if (this.state.paymentSplit === 'equal split other owed') {
@@ -72,7 +73,7 @@ class ExpenseNew extends React.Component {
         ...this.state.formData,
         paidBy: this.state.expenseOtherUserId,
         owedBy: this.state.expenseCreatorId,
-        amountOwed
+        amountOwed: amountOwed
       }
     })
   } else if (this.state.paymentSplit === 'other is owed total') {
@@ -82,7 +83,7 @@ class ExpenseNew extends React.Component {
         ...this.state.formData,
         paidBy: this.state.expenseOtherUserId,
         owedBy: this.state.expenseCreatorId,
-        amountOwed
+        amountOwed: amountOwed
       }
     })
   }
@@ -95,12 +96,12 @@ class ExpenseNew extends React.Component {
   }
 
 
-  handleSubmit = async event => {
+  handleSubmit = async event => { // * Need error validation/messaging implemented (fields not filled in, etc. )
     event.preventDefault()
     try {
       const res = await createExpense(this.state.formData)
       console.log(res)
-      this.props.history.push('/expenses')
+      this.props.history.push('/users/expenses')
     } catch (err) {
       console.log(err.response)
     }
@@ -109,6 +110,7 @@ class ExpenseNew extends React.Component {
   render() {
     return (
       <section className="section">
+        <Link to="/users/expenses">Back to Expenses Page</Link>
         <div className="container">
           <div className="columns">
             <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
@@ -124,11 +126,11 @@ class ExpenseNew extends React.Component {
                 ))}
                 </select>
               <div className="field">
-                <label className="label">Name</label>
+                <label className="label">Description</label>
                 <div className="control">
                   <input
                     className="input"
-                    placeholder="Name"
+                    placeholder="Description of expense"
                     name="name"
                     onChange={this.handleChange}
                     value={this.state.formData.name}
@@ -193,8 +195,8 @@ class ExpenseNew extends React.Component {
                   </select>
                 </div>
               </div>
-              {(this.state.formData.amountOwed !== 0 && (this.state.paymentSplit === 'equal split creator owed' || this.state.paymentSplit === 'creator is owed total')) && <label className="label">{this.state.otherUserName} will owe you £{this.state.formData.amountOwed.toFixed(2)}</label>}
-              {(this.state.formData.amountOwed !== 0 && (this.state.paymentSplit === 'equal split other owed' || this.state.paymentSplit === 'other is owed total')) && <label className="label">You will owe {this.state.otherUserName} £{this.state.formData.amountOwed.toFixed(2)}</label>}
+              {(this.state.formData.amountOwed !== 0 && (this.state.paymentSplit === 'equal split creator owed' || this.state.paymentSplit === 'creator is owed total')) && <label className="label">{this.state.otherUserName} will owe you £{this.state.formData.amountOwed}</label>}
+              {(this.state.formData.amountOwed !== 0 && (this.state.paymentSplit === 'equal split other owed' || this.state.paymentSplit === 'other is owed total')) && <label className="label">You will owe {this.state.otherUserName} £{this.state.formData.amountOwed}</label>}
               <div className="field">
                 <button type="submit" className="button is-fullwidth is-warning">Submit New Expense</button>
               </div>

@@ -170,6 +170,19 @@ async function showUserFriends(req, res) {
   }
 }
 
+async function showUsersAndIds(req, res) { // * To array of just user IDs and Names
+  try {
+    const users = await User.find()
+    const filterArray = []
+    for (let i = 0; i < users.length; i++) {
+      filterArray.push((({ firstName, _id }) => ({ firstName, _id }))(users[i]))
+    }
+    res.status(200).json(filterArray)
+  } catch (err) {
+    res.status(404).json(err)
+  }
+}
+
 module.exports = {
   index: usersIndex,
   show: userShow,
@@ -180,5 +193,6 @@ module.exports = {
   friendRequestAccept: confirmFriendRequest,
   rejectRequest: rejectFriendRequest,
   showAllFriends: showAllFriends,
-  showUserFriends: showUserFriends
+  showUserFriends: showUserFriends,
+  showUsersAndIds: showUsersAndIds
 }

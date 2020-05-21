@@ -14,9 +14,10 @@ import ExpensesNew from './components/expenses/ExpenseNew'
 import ExpensesIndex from './components/expenses/ExpensesIndex'
 import ExpensesRequestIndex from './components/expenses/ExpensesRequestIndex'
 import ShowFriendRequests from './components/friends/ShowFriendRequests'
+import ExpenseShow from './components/expenses/ExpenseShow'
 
 const App = () => {
-  return (
+  return ( 
     <BrowserRouter>
       <Navbar />
       <Switch>
@@ -25,14 +26,14 @@ const App = () => {
 				{/* <Route path="/users/:id/search/friends" component={FriendSearch} /> */}
         <Route path="/users/friends/requests" component={SearchIndex} />
 				<Route path="/users/:id/search/friends" component={FriendSearch} />
-				<Route path="/users/:id" component={UserShow} />
         <Route path="/users/expenses/pending" component={ExpensesRequestIndex} />
+        <Route path="/users/expenses/new" component={ExpensesNew} />
+        <Route path="/users/expenses/:id" component={ExpenseShow} />
         <Route path="/users/expenses" component={ExpensesIndex} />
         <Route path="/users/:id/update" component={UserUpdate} />
         <Route path="/users/:id/bank" component={UserBank} />
         <Route path="/users/:id" component={UserShow} />
         <Route path="/search" component={SearchIndex} />
-        <Route path="/expenses/new" component={ExpensesNew} />
 				<Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
       </Switch>

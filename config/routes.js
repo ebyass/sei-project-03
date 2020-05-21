@@ -43,6 +43,9 @@ router.route('/login')
 router.route('/users')
   .get(users.index)
 
+router.route('/usersnames')
+  .get(users.showUsersAndIds)
+
 router.route('/users/:id')
   .get(users.show)
   .put(users.update)
