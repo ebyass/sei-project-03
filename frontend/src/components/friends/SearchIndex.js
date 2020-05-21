@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { getAllUsers, sendFriendRequest } from '../../lib/api'
+import { getAllUsers, sendFriendRequest, getUserFriends } from '../../lib/api'
 import SearchInput from './SearchInput'
+import { getPayload } from '../../lib/_auth'
 
 
 
@@ -10,7 +11,8 @@ class SearchIndex extends React.Component {
 
 	state = {
 		users: [],
-		searchTerm: ''
+		searchTerm: '',
+
 	}
 
 	async componentDidMount() {
@@ -36,12 +38,15 @@ class SearchIndex extends React.Component {
 
 	handleClick = async event => {
 		event.preventDefault()
+		const loggedInUserId = getPayload().sub
 		const userId = event.target.value
 		console.log('friendId', userId)
-
 		try {
 			const res = await sendFriendRequest(userId)
-			console.log('res', res.data)
+			const getAllUsers = await getAllUsers()
+
+			this.setState({ users: getAllUsers.data })
+			console.log(res.data.friends, loggedInUserId)
 
 		} catch (err) {
 			console.log(err.message)
@@ -53,50 +58,94 @@ class SearchIndex extends React.Component {
 
 
 	render() {
-		const { searchTerm } = this.state
+		const { searchTerm, friends } = this.state
+		const loggedInUserId = getPayload().sub
+		console.log(this.filteredUsers().map(user => (
+			user.friends.filter(user => (
+				user.user !== loggedInUserId
+			))
+		)))
 		return (
-			<>
+			<div>
 				<h1>Search Index</h1>
-				<div className="section">
-					<div className="container">
-						<div className="search-user-profile">
-
-							<SearchInput
-								handleFilterChange={this.handleFilterChange}
-								searchTerm={searchTerm}
-							/>
-
-							<>
-								{searchTerm ? <div>
-									{this.filteredUsers().map(user => (
-										<div>
-											<p>{user.firstName} {user.lastName}</p>
-											<img src={user.image} alt={user.firstName} />
-											<button
-												key={user.id}
-												name='sendRequestButton'
-												value={user.id}
-												onClick={this.handleClick}
-											>Send Request</button>
-										</div>
-									))}
-								</div> : <div><p>Search</p></div>}
 
 
-								{this.filteredUsers().map(user => (
-									user.accepted === true || user.accepted === false
+				<SearchInput
+					handleFilterChange={this.handleFilterChange}
+					searchTerm={searchTerm}
+				/>
+
+
+				{searchTerm ? <div>
+					{this.filteredUsers().map(user => (
+						<div>
+						<p>{user.firstName}</p> 
+						<p>{user.lastName}</p> 
+						<img src={user.image} alt={user.firstName} /> 
+						</div>
+						<div>
+							{user.friends.user === loggedInUserId && <button>Friends</button>}
+
+							{user.friends.user !== loggedInUserId && (
+							
+							<button>Friends</button>}
+						</div>
+					))}
+
+					{/* {this.filteredUsers().map(user => {
+						return (
+							user.friends.map(friend => (
+							(friend.user === loggedInUserId ? (<div>{friend.firstName} {friend.lastName}</div>) : (<button>Add friend</button>)
+								
+							))	
+							
+						) */}
+						// <div>
+
+						// </div>	
+						)} 
+		)}
+				{/* 
+					{this.filteredUsers().map(user => (
+						user.friends.filter(friend => (
+							friend.friends.map(friend => (
+								
+								friend.user === loggedInUserId
+
+								<div>
+									<p>{user.firstName} {user.lastName}</p>
+									<img src={user.image} alt={user.firstName} />
+								</div>
+
+							))
+							
+							
+								
+							
+					))))} */}
+
+
+				{/* {this.filteredUsers().filter(user => (
+									user.friends.user !== loggedInUserId
 								)).map(user => (
 									<div>
 										<p>{user.firstName} {user.lastName}</p>
-										<p>{user.image}</p>
+										<img src={user.image} alt={user.firstName} />
+										<button
+											key={user.id}
+											name='sendRequestButton'
+											value={user.id}
+											onClick={this.handleClick}
+										>Add as Friend</button>
 									</div>
-								))}
+								))} */}
 
-							</>
-						</div>
-					</div>
-				</div>
-			</>
+			</div> : <div><p>Search</p></div>
+	}
+
+
+
+			</div>
 		)
 	}
 }

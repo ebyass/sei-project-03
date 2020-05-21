@@ -6,7 +6,7 @@ const friendsSchema = new mongoose.Schema({
   accepted: { type: Boolean, default: false, required: true },
   madeTheRequest: { type: Boolean, default: false, ref: 'User' },
   firstName: { type: String, ref: 'User', required: true  },
-  lastName: { type: String, ref: 'User', required: true  },
+  lastName: { type: String, ref: 'User' },
   image: { type: String, ref: 'User' }
 })
 
@@ -17,7 +17,7 @@ const referenceExpenseSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
   password: { type: String, required: true },
   phoneNumber: { type: String, required: true, unique: true },
   image: { type: String },
