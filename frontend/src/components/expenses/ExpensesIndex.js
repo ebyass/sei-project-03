@@ -13,7 +13,7 @@ class ExpensesIndex extends React.Component {
   }
 
   async componentDidMount() {
-		try {
+    try {
       const userId = getPayload().sub
       const owedExpenses = await getExpensesOwedByUser()
       const owedToExpenses = await getExpensesOwedToUser()
@@ -21,17 +21,19 @@ class ExpensesIndex extends React.Component {
       const settledWithExpenses = await getSettledWithExpenses()
       const friends = await getUserFriends(userId)
       this.setState(
-        { expensesOwedByUser: owedExpenses.data, 
+        {
+          expensesOwedByUser: owedExpenses.data,
           expensesOwedToUser: owedToExpenses.data,
           expensesSettledByUser: settledExpenses.data,
-          expensesSettledWithUser: settledWithExpenses.data, 
-          friends: friends.data }
+          expensesSettledWithUser: settledWithExpenses.data,
+          friends: friends.data
+        }
       )
       console.log(this.state)
-		} catch (err) {
-			console.log(err.message)
-		}
-	}
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
 
   findFriendsName = friendId => {
     const index = this.state.friends.findIndex(x => x.user === friendId)
@@ -53,46 +55,61 @@ class ExpensesIndex extends React.Component {
 
   render() {
     return (
-      <section className="container">
-        <Link to="/users/expenses/new">Create New Expense</Link>
-        <br />
-        <Link to="/users/expenses/pending">View Pending Expenses</Link>
-        <br />
-        <label>Owed by you</label>
-        <hr />
-        {this.state.expensesOwedByUser.map(expense => (
-          <Link to={`/users/expenses/${expense._id}`}>
-            <label key={expense._id} value={expense.user}>
-            You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}
-            <button key={expense._id} value={expense._id} onClick={this.handleAccept}>Settle Expense</button>
-          <br />
-          </label>
-          </Link> 
-        ))}
-        <label>Owed by friends</label>
-        <hr />
-        {this.state.expensesOwedToUser.map(expense => (
-          <Link to={`/users/expenses/${expense._id}`}>
-            <label key={expense._id} value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
-          </Link>       
-        ))}
-        <label>Settled by you</label>
-        <hr />
-        {this.state.expensesSettledByUser.map(expense => (
-          <Link to={`/users/expenses/${expense._id}`}>
-            <label key={expense._id} value={expense.user}>You paid {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
-          </Link>
-        ))}
-        <label>Settled by friends</label>
-        <hr />
-        {this.state.expensesSettledWithUser.map(expense => (
-          <Link to={`/users/expenses/${expense._id}`}>
-            <label key={expense._id} value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
-          </Link>
-          
-        ))}
+      <section className="section expenses">
+        <Link to="/users/expenses/new"><h3>Create New Expense</h3></Link>
+        <div className="tabs">
+          <span className="accountable-brand highlighted">Expenses</span>
+          <Link to="/users/expenses/pending" className="accountable-brand shaded">Pending expenses</Link>
+        </div>
+        <div className="options">
+          <div className="option">
+            <h2>Owed by you</h2>
+            </div>
+            <div className="option-content">
+            {this.state.expensesOwedByUser.map(expense => (
+              <Link to={`/users/expenses/${expense._id}`}>
+                <label key={expense._id} value={expense.user}>
+                  You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}
+                  <button key={expense._id} value={expense._id} onClick={this.handleAccept}>Settle Expense</button>
+                </label>
+                <hr />
+              </Link>
+            ))}
+            </div>
+          <div className="option">
+            <h2>Owed by friends</h2>
+            </div>
+            <div className="option-content">
+            {this.state.expensesOwedToUser.map(expense => (
+              <Link to={`/users/expenses/${expense._id}`}>
+                <label key={expense._id} value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
+              </Link>
+            ))}
+            </div>
+          <div className="option">
+            <h2>Settled by you</h2>
+            </div>
+            <div className="option-content">
+            {this.state.expensesSettledByUser.map(expense => (
+              <Link to={`/users/expenses/${expense._id}`}>
+                <label key={expense._id} value={expense.user}>You paid {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}</label>
+                <br />
+              </Link>
+            ))}
+            </div>
+          <div className="option">
+            <h2>Settled by friends</h2>
+            </div>
+            <div className="option-content">
+            {this.state.expensesSettledWithUser.map(expense => (
+              <Link to={`/users/expenses/${expense._id}`}>
+                <label key={expense._id} value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
+              </Link>
+            ))}
+            </div>
+        </div>
       </section>
-      
+
     )
   }
 
