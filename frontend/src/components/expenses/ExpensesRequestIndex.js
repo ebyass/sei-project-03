@@ -67,10 +67,11 @@ class ExpensesRequestIndex extends React.Component {
             {this.state.pendingExpensesToAccept.map(expense => (
               <Link to={`/users/expenses/${expense._id}`}>
                 <label key={expense._id} value={expense.user}>
-                  You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}
-                  <button value={expense._id} onClick={this.handleAccept}>Accept Expense</button>
-                  <button value={expense._id} onClick={this.handleReject}>Reject Expense</button>
-                  <br />
+                  <p>You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}</p>
+                  <div className="buttons">
+                  <button value={expense._id} onClick={this.handleAccept} className="button blue">Accept Expense</button>
+                  <button value={expense._id} onClick={this.handleReject} className="button other">Reject Expense</button>
+                  </div>
                 </label>
               </Link>
             ))}

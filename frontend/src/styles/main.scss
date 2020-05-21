@@ -221,8 +221,20 @@ section.expenses {
       }
     }
     div.option-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
       min-height: 40px;
       padding: 0 1rem;
+      div.buttons {
+        margin: 0 auto;
+        button {
+          margin: 0.5rem auto;
+          width: 45%;
+        }
+      }
+      
     }
   }
 }
