@@ -10,11 +10,38 @@
 
 * {
   font-family: 'Poppins', sans-serif;
-  color: #00171F;
 }
 
 body {
   margin: 0;
+  color: #00171F;
+}
+
+.accountable-brand {
+  font-family: 'DM Serif Display', serif;
+}
+
+button.button {
+  font-family: 'Poppins', sans-serif;
+}
+
+button.blue {
+  background-color: #3C91E6;
+  color: #FFF;
+  border-bottom: 3px solid #245AA7;
+}
+
+button.other {
+  background-color: #E9E5E8;
+  color: #7A7477;
+  font-weight: 300;
+  border-bottom: 3px solid #CAC7C9;
+}
+
+.balance-input {
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  width: 66%;
 }
 
 // * Nav bar
@@ -22,26 +49,120 @@ nav.navbar {
   background-color: #3C91E6;
   .logo h1 {
     color: #FFF;
-    font-family: 'DM Serif Display', serif;
     font-size: 24px;
   }
-  .navbar-menu {
-    background-color: #57a5f3;
-  }
+}
+
+span.logout {
+  cursor: pointer;
 }
 
 // * Home page
 section.hero {
   background-color: #E9E5E8;
+  height: 50vh;
+  min-height: 300px;
   div.container {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
     margin: 0 auto;
     width: 50vw;
+    h2 {
+      font-size: 36px;
+    }
   }
-  h1 {
-    font-size: 36px;
+}
 
+section.main-content {
+  margin: 0 auto;
+  h1.accountable-brand {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 1em;
+  } 
+  p {
+    font-weight: 300;
+    margin-bottom: 1em;
+  }
+}
+
+// * Register and log-in pages
+section.section {
+  h1.accountable-brand {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 1em;
+  } 
+  button.blue {
+    width: 100%;
+  }
+}
+
+
+// * User account page
+section.user-account {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+  text-align: center;
+  div{
+    width: 100%;
+    padding: 2rem;
+  }
+  h3 {
+    font-size: 24px;
+  }
+  div.account-balance {
+    padding: 3rem 1.5rem 4rem;
+    background-color: #E9E5E8;
+    h2 {
+      font-size: 24px;
+    }
+    h1 {
+      font-size: 60px;
+      margin-bottom: -10px;
+    }
+    p {
+      font-weight: 300;
+    }
+  }
+  div.top-up {
+    button.blue {
+      margin: 0.5rem;
+      width: 20%;
+      font-size: 18px;
+    }
+    button.other {
+      width: 20%;
+    }
+    button.top-up {
+      margin: 0;
+      width: 100%;
+    }
+    form {
+      padding-bottom: 0;
+    }
+  }
+  div.settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div.user-info {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      text-align: left;
+      div {
+        padding: 0;
+        p {
+          font-weight: 300;
+        }
+      }
+    }
   }
 }
 

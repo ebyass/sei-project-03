@@ -29,6 +29,7 @@ class ShowFriendsRequests extends React.Component {
 			const requestId = event.target.value
 			const res = await acceptFriendRequest(userId, requestId)
 			console.log('res', res.data)
+			window.location.reload()
 		} catch (err) {
 			console.log(err.message)
 		}
@@ -42,6 +43,7 @@ class ShowFriendsRequests extends React.Component {
 			const requestId = event.target.value
 			const res = await rejectFriendRequest(userId, requestId)
 			console.log('res', res.data)
+			window.location.reload()
 		} catch (err) {
 			console.log(err.message)
 		}
@@ -55,20 +57,30 @@ class ShowFriendsRequests extends React.Component {
 				<h1>showFriendRequests</h1>
 				<div className="section">
 					<div className="container">
-						{this.state.friends.map(friend => (
+						{this.state.friends.filter(friend => (
+							friend.madeTheRequest === true && friend.accepted === false
+						)).map(friend => (
 							<div>
-								<p>{friend.firstName} {friend.lastName}</p>
-								<button 
-								onClick={this.handleAccept}
-								name='acceptRequest'
-								value={friend._id}
-								>Accept</button>
-								<button onClick={this.handleReject}
-								name='rejectRequest'
-								value={friend._id}
-								>Reject</button>
-								{/* <button>Pending</button> */}
-							</div>
+							<p>{friend.firstName} {friend.lastName}</p>
+							<button 
+							onClick={this.handleAccept}
+							name='acceptRequest'
+							value={friend._id}
+					>Accept</button>
+							<button onClick={this.handleReject}
+							name='rejectRequest'
+							value={friend._id}
+					>Reject</button>
+						</div>
+						))}
+							{this.state.friends.filter(friend => (
+							friend.madeTheRequest === false && friend.accepted === false
+						)).map(friend => (
+							<div>
+							<p>{friend.firstName} {friend.lastName}</p>
+							<button 
+					>Pending</button>
+						</div>
 						))}
 					</div>
 				</div>

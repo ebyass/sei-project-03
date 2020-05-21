@@ -59,39 +59,44 @@ class UserShow extends React.Component {
     if (!this.state.user) return null
     const { user } = this.state
     return (
-      <div>
-        <div>
+      <section className="section user-account">
+        <div className="account-balance">
           <h2>Account</h2>
-          <h1>£{user.balance.toFixed(2)}</h1>
+          <h1 className="accountable-brand">£{user.balance.toFixed(2)}</h1>
           <p>Balance</p>
         </div>
-        <div>
-          <h3>Top-up</h3>
-          <BalanceButtons 
-            handleClick={this.handleClick} 
-            handleChange={this.handleChange} 
+        <div className="top-up">
+          <h3>Top up</h3>
+          <BalanceButtons
+            handleClick={this.handleClick}
+            handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             showInput={this.state.showInput}
           />
         </div>
         <div>
-          <div>Settings</div>
-          <div>
-            <img src="#" alt={`${user.firstName}'s profile`} />
-            <h3>{user.firstName} {user.lastName}</h3>
-            <p>{user.email}</p>
+          <hr />
+          <h3>Settings</h3>
+          <div className="settings">
+            <div className="user-info">
+              <img src="#" alt={`${user.firstName}'s profile`} />
+              <div>
+                <h3>{user.firstName} {user.lastName}</h3>
+                <p>{user.email}</p>
+              </div>
+            </div>
             <span><Link to={`/users/${user._id}/update`}>Arrow</Link></span>
           </div>
-          <div>
-            <h3>Notification</h3>
+          <div className="settings">
+            <h3>Notifications</h3>
             <span>Arrow</span>
           </div>
-          <div>
+          <div className="settings">
             <h3>Bank</h3>
             <span><Link to={`/users/${user._id}/bank`}>Arrow</Link></span>
           </div>
         </div>
-      </div>
+      </section>
     )
   }
 }

@@ -16,23 +16,27 @@ class Register extends React.Component {
       
     }
   }
+
   handleChange = event => {
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
     this.setState({ formData })
   }
+
   handleSubmit = async event => {
     event.preventDefault()
     try {
 			await registerUser(this.state.formData)
-			this.props.history.push('/') //* <-- Push user to newsfeed or profile eventually 
+			this.props.history.push('/login') //* <-- Push user to newsfeed or profile eventually 
     } catch (err) {
       console.log('oops', err.response.data)
     }
   }
+
   render() {
     return (
       <section className="section">
         <div className="container">
+          <h1 className="accountable-brand">Become Accountable</h1>
           <div className="columns">
             <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
               <div className="field">
@@ -110,7 +114,7 @@ class Register extends React.Component {
                 </div>
               </div>
               <div className="field">
-                <button type="submit" className="button is-fullwidth">Register</button>
+                <button type="submit" className="button blue">Sign up</button>
               </div>
             </form>
           </div>

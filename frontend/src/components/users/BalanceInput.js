@@ -2,7 +2,7 @@ import React from 'react'
 
 const BalanceInput = ({ handleChange, handleSubmit, buttonText }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="balance-input">
       <label className="label">Enter amount:</label>
       <input
         className="input"
@@ -10,7 +10,7 @@ const BalanceInput = ({ handleChange, handleSubmit, buttonText }) => {
         onChange={handleChange}
       />
       <div className="field">
-        <button type="submit" className="button">{buttonText}</button>
+        <button type="submit" className="button blue top-up">{buttonText}</button>
       </div>
     </form>
   )

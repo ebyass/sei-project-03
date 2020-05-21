@@ -23,9 +23,8 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Home} />
 				<Route path="/users/friends/requests/pending" component={ShowFriendRequests}/>
-				{/* <Route path="/users/:id/search/friends" component={FriendSearch} /> */}
-        <Route path="/users/friends/requests" component={SearchIndex} />
-				<Route path="/users/:id/search/friends" component={FriendSearch} />
+				<Route path="/users/friends" component={FriendSearch} />
+				<Route path="/users/:id" component={UserShow} />
         <Route path="/users/expenses/pending" component={ExpensesRequestIndex} />
         <Route path="/users/expenses/new" component={ExpensesNew} />
         <Route path="/users/expenses/:id" component={ExpenseShow} />

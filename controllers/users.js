@@ -55,9 +55,9 @@ async function userFriendRequestCreate (req, res, next) {
     // if (user) throw new Error(unauthorized)
     // * if (!user.friends.user.req.params.id) throw new Error() ---- NOT WORKING AS INTENDED
     const requestUser = await User.findById(req.currentUser._id)
-    user.friends.push({ user: req.currentUser._id, firstName: req.currentUser.firstName, madeTheRequest: false })
+    user.friends.push({ user: req.currentUser._id, firstName: req.currentUser.firstName, madeTheRequest: true })
     await user.save()
-    requestUser.friends.push({ user: user._id, accepted: false, firstName: user.firstName, madeTheRequest: true })
+    requestUser.friends.push({ user: user._id, accepted: false, firstName: user.firstName, madeTheRequest: false })
     await requestUser.save()
     res.status(201).json(user)
   } catch (err) {
