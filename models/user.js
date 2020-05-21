@@ -6,8 +6,8 @@ const friendsSchema = new mongoose.Schema({
   accepted: { type: Boolean, default: false, required: true },
   madeTheRequest: { type: Boolean, default: false, ref: 'User' },
   firstName: { type: String, ref: 'User' },
-  lastName: { type: String },
-  image: { type: String }
+  lastName: { type: String, ref: 'User' },
+  image: { type: String, ref: 'User' }
 })
 
 const referenceExpenseSchema = new mongoose.Schema({

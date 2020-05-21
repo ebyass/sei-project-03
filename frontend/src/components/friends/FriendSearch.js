@@ -62,7 +62,9 @@ class FriendSearch extends React.Component {
 								searchTerm={searchTerm}
 							/>
 							<div>
-								{this.filteredFriends().map(user => (
+								{this.filteredFriends().filter(user => (
+									user.accepted === true
+								)).map(user => (
 									<div>
 										<p>{user.firstName} </p>
 										<p>{user.lastName}</p>
@@ -75,6 +77,18 @@ class FriendSearch extends React.Component {
 										>Create Expense</button>
 									</div>
 								))}
+								{this.filteredFriends().filter(user => (
+									user.accepted === false
+								)).map(user => (
+									<div>
+										<p>{user.firstName} </p>
+										<p>{user.lastName}</p>
+										<p>{user.image}</p>
+										<button
+										>Pending</button>
+									</div>
+								))}
+
 							</div>
 						</div>
 					</div>

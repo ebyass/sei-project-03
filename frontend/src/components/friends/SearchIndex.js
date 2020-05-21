@@ -10,7 +10,8 @@ class SearchIndex extends React.Component {
 
 	state = {
 		users: [],
-		searchTerm: ''
+		searchTerm: '',
+		sentRequest: ''
 	}
 
 	async componentDidMount() {
@@ -38,11 +39,11 @@ class SearchIndex extends React.Component {
 		event.preventDefault()
 		const userId = event.target.value
 		console.log('friendId', userId)
-
+		
 		try {
 			const res = await sendFriendRequest(userId)
 			console.log('res', res.data)
-
+			this.setState({sentRequest: 'Pending'})
 		} catch (err) {
 			console.log(err.message)
 		}
@@ -68,7 +69,10 @@ class SearchIndex extends React.Component {
 
 							<>
 								{searchTerm ? <div>
-									{this.filteredUsers().map(user => (
+
+									{this.filteredUsers().filter(user => (
+										user.accepted !== false && user.accepted !== true
+									)).map(user => (
 										<div>
 											<p>{user.firstName} {user.lastName}</p>
 											<p>{user.image}</p>
@@ -80,6 +84,7 @@ class SearchIndex extends React.Component {
 											>Send Request</button>
 										</div>
 									))}
+
 
 								</div> : <div><p>Search</p></div>}
 							</>
