@@ -2,16 +2,15 @@ import React from 'react'
 
 import { getAllUsers, sendFriendRequest } from '../../lib/api'
 import SearchInput from './SearchInput'
-// import MiniUserProfile from './MiniUserProfile'
-import { getPayload } from '../../lib/_auth'
+
+
 
 
 class SearchIndex extends React.Component {
 
 	state = {
 		users: [],
-		searchTerm: '',
-		sentRequest: ''
+		searchTerm: ''
 	}
 
 	async componentDidMount() {
@@ -39,11 +38,11 @@ class SearchIndex extends React.Component {
 		event.preventDefault()
 		const userId = event.target.value
 		console.log('friendId', userId)
-		
+
 		try {
 			const res = await sendFriendRequest(userId)
 			console.log('res', res.data)
-			this.setState({sentRequest: 'Pending'})
+
 		} catch (err) {
 			console.log(err.message)
 		}
@@ -69,24 +68,30 @@ class SearchIndex extends React.Component {
 
 							<>
 								{searchTerm ? <div>
-
-									{this.filteredUsers().filter(user => (
-										user.accepted !== false && user.accepted !== true
-									)).map(user => (
+									{this.filteredUsers().map(user => (
 										<div>
 											<p>{user.firstName} {user.lastName}</p>
-											<p>{user.image}</p>
+											<img src={user.image} alt={user.firstName} />
 											<button
-												key={user._id}
+												key={user.id}
 												name='sendRequestButton'
-												value={user._id}
+												value={user.id}
 												onClick={this.handleClick}
 											>Send Request</button>
 										</div>
 									))}
-
-
 								</div> : <div><p>Search</p></div>}
+
+
+								{this.filteredUsers().map(user => (
+									user.accepted === true || user.accepted === false
+								)).map(user => (
+									<div>
+										<p>{user.firstName} {user.lastName}</p>
+										<p>{user.image}</p>
+									</div>
+								))}
+
 							</>
 						</div>
 					</div>

@@ -1,8 +1,7 @@
 import React from 'react'
-
 import { getSingleUser } from '../../lib/api'
 import SearchInput from './SearchInput'
-import { setToken, getPayload } from '../../lib/_auth'
+import { getPayload } from '../../lib/_auth'
 
 
 
@@ -33,8 +32,8 @@ class FriendSearch extends React.Component {
 		try {
 			const { friends, searchTerm } = this.state
 			const regexp = new RegExp(searchTerm, 'i')
-			return friends.filter(user => {
-				return regexp.test(user.firstName) || regexp.test(user.lastName) || regexp.test(user.email) || regexp.test(user.phoneNumber)
+			return friends.filter(friend => {
+				return regexp.test(friend.firstName) && regexp.test(friend.lastName) || regexp.test(friend.email) || regexp.test(friend.phoneNumber)
 			})
 		} catch (err) {
 			console.log(err.message)
@@ -45,12 +44,13 @@ class FriendSearch extends React.Component {
 	handleClick = async event => {
 		event.preventDefault()
 		const userId = event.target.value
-		console.log('userId', userId)
+		console.log('userId', userId, 'with', event.target.name)
+		this.props.history.push(`/users/expenses/new/${userId}`)
 	}
 
 
 	render() {
-		const { searchTerm } = this.state
+		const { searchTerm, friends } = this.state
 		return (
 			<>
 				<h1>FriendSearch</h1>
@@ -62,28 +62,28 @@ class FriendSearch extends React.Component {
 								searchTerm={searchTerm}
 							/>
 							<div>
-								{this.filteredFriends().filter(user => (
-									user.accepted === true
-								)).map(user => (
+								{this.filteredFriends().filter(friend => (
+									friend.accepted === true
+								)).map(friend => (
 									<div>
-										<p>{user.firstName} </p>
-										<p>{user.lastName}</p>
-										<p>{user.image}</p>
+										<p>{friend.firstName && friend.lastName}</p>
+										{/* <p>{friend.lastName}</p> */}
+										<img src={friend.image} alt={friend.firstName} />
 										<button
-											key={user._id}
+											key={friend._id}
 											name='createExpenseButton'
-											value={user._id}
+											value={friend._id}
 											onClick={this.handleClick}
 										>Create Expense</button>
 									</div>
 								))}
-								{this.filteredFriends().filter(user => (
-									user.accepted === false
-								)).map(user => (
+								{this.filteredFriends().filter(friend => (
+									friend.accepted === false
+								)).map(friend => (
 									<div>
-										<p>{user.firstName} </p>
-										<p>{user.lastName}</p>
-										<p>{user.image}</p>
+										<p>{friend.firstName} </p>
+										<p>{friend.lastName}</p>
+										<img src={friend.image} alt={friend.firstName} />
 										<button
 										>Pending</button>
 									</div>
