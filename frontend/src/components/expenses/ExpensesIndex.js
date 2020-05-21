@@ -2,6 +2,7 @@ import React from 'react'
 import { getExpensesOwedByUser, getExpensesOwedToUser, getUserFriends, getSettledExpenses, getSettledWithExpenses, settleExpense } from '../../lib/api'
 import { getPayload } from '../../lib/_auth'
 import { Link } from 'react-router-dom'
+import { notify } from 'react-notify-toast'
 
 class ExpensesIndex extends React.Component {
   state = {
@@ -29,7 +30,6 @@ class ExpensesIndex extends React.Component {
           friends: friends.data
         }
       )
-      console.log(this.state)
     } catch (err) {
       console.log(err.message)
     }
@@ -43,13 +43,14 @@ class ExpensesIndex extends React.Component {
 
   handleAccept = async event => { // * Need to bring in error validation/messaging (i.e. not enough balance etc.)
     const expenseId = event.target.value
-    console.log(expenseId)
     try {
       const res = await settleExpense(expenseId)
-      console.log(res)
-      window.location.reload()
+      notify.show('Expense settled', 'success', 1500)
+      const owedExpenses = await getExpensesOwedByUser()
+      const settledExpenses = await getSettledExpenses()
+      this.setState({ expensesOwedByUser: owedExpenses.data, expensesSettledByUser: settledExpenses.data })
     } catch (err) {
-      console.log('no joy')
+      notify.show('Not enough money in your account to settle', 'error', 1500)
     }
   }
 
@@ -67,14 +68,16 @@ class ExpensesIndex extends React.Component {
             </div>
             <div className="option-content">
             {this.state.expensesOwedByUser.map(expense => (
+              <>
               <Link to={`/users/expenses/${expense._id}`}>
                 <label key={expense._id} value={expense.user}>
                   <p>You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}</p>
+                  </label>
+              </Link>
                   <div className="buttons">
                   <button key={expense._id} value={expense._id} onClick={this.handleAccept} className="button blue">Settle Expense</button>
                   </div>
-                </label>
-              </Link>
+              </>
             ))}
             </div>
           <div className="option">

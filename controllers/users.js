@@ -170,7 +170,7 @@ async function showUserFriends(req, res) {
   }
 }
 
-async function showUsersAndIds(req, res) { // * To array of just user IDs and Names
+async function showUsersAndIds(req, res) { // * To get array of just user IDs and Names
   try {
     const users = await User.find()
     const filterArray = []

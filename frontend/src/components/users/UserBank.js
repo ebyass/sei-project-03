@@ -1,5 +1,6 @@
 import React from 'react'
 import { getSingleUser, changeBalance } from '../../lib/api'
+import { notify } from 'react-notify-toast'
 
 import BalanceInput from './BalanceInput'
 
@@ -33,9 +34,10 @@ class UserBank extends React.Component {
     try {
       if (this.state.user.balance < this.state.requestData.amount) throw new Error()
       const res = await changeBalance(userId, this.state.requestData)
+      notify.show('Funds transferred to your bank', 'success', 1500)
       this.setState({ user: res.data })
     } catch (err) {
-      alert('Not enough funds in account')
+      notify.show('Not enough funds in your account', 'error', 1500)
     }
   }
 

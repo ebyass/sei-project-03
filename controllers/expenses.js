@@ -200,14 +200,11 @@ async function settledExpensesOwedByUser(req, res) { // * To populate SETTLED ex
 async function settledExpensesOwedToUser(req, res) { // * To populate SETTLED expenses owed to user
   const userId = JSON.stringify(req.currentUser._id)
   try {
-    console.log('reaching here')
-    console.log(typeof(userId))
     const allExpenses = await Expense.find()
     const filteredExpenses = allExpenses.filter((expense) => {
       return JSON.stringify(expense.paidBy) === userId &&
               expense.settled === true
     })
-    console.log(filteredExpenses)
     res.status(200).json(filteredExpenses)
   } catch (err) {
     res.status(404).json(err)
