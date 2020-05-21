@@ -32,6 +32,7 @@ class Login extends React.Component {
     return (
       <section className="section">
         <div className="container">
+        <h1 className="accountable-brand">Welcome to Accountable</h1>
           <div className="columns">
             <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
               <div className="field">
@@ -61,7 +62,7 @@ class Login extends React.Component {
                 {error && <small className="help is-danger">{error}</small>}
               </div>
               <div className="field">
-                <button type="submit" className="button is-fullwidth">Login</button>
+                <button type="submit" className="button blue is-fullwidth">Log in</button>
               </div>
             </form>
           </div>

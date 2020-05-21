@@ -25,7 +25,6 @@ const App = () => {
 				{/* <Route path="/users/:id/search/friends" component={FriendSearch} /> */}
         <Route path="/users/friends/requests" component={SearchIndex} />
 				<Route path="/users/:id/search/friends" component={FriendSearch} />
-				<Route path="/users/:id" component={UserShow} />
         <Route path="/users/expenses/pending" component={ExpensesRequestIndex} />
         <Route path="/users/expenses" component={ExpensesIndex} />
         <Route path="/users/:id/update" component={UserUpdate} />

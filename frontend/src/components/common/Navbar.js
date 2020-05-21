@@ -32,7 +32,7 @@ class Navbar extends React.Component {
 			<nav className="navbar is-link">
 				<div className="container">
 					<div className="navbar-brand">
-						<Link to="/" className="navbar-item logo"><h1>Accountable</h1></Link>
+						<Link to="/" className="navbar-item logo"><h1 className="accountable-brand">Accountable</h1></Link>
 						<span onClick={this.handleToggle} className={`navbar-burger ${isOpen ? 'is-active' : ''}`}>
 							<span aria-hidden="true"></span>
 							<span aria-hidden="true"></span>
@@ -49,7 +49,7 @@ class Navbar extends React.Component {
 							{isAuthenticated() && <Link to="/search" className="navbar-item">Search</Link>}
 							{isAuthenticated() && <Link to="/" className="navbar-item">Expenses</Link>}
 							{isAuthenticated() && <Link to={`/users/${userId}`} className="navbar-item">Account</Link>}
-							{isAuthenticated() && <span onClick={this.handleLogout} className="navbar-item Logout">Logout</span>}
+							{isAuthenticated() && <span onClick={this.handleLogout} className="navbar-item logout">Logout</span>}
 						</div>
 					</div>
 				</div>
