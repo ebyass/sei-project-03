@@ -47,9 +47,6 @@ router.route('/users/:id')
   .get(users.show)
   .put(users.update)
   .delete(users.delete)
-
-// router.route('users/:id/friends')
-//   .get(users.showAllFriends) //* <-- need to get all friends
   
 router.route('/users/:id/friends')
   .get(secureRoute, users.showUserFriends) //* <-- Just added an s in users 

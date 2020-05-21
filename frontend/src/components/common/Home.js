@@ -7,7 +7,7 @@ const Home = () => {
       <section className="hero section">
         <div className="container">
           <h2>Keep track of expenses between friends</h2>
-          <span className="button blue"><Link to="/register">Sign up</Link></span>
+          <span className="button"><Link to="/register">Sign up</Link></span>
         </div>
       </section>
       <section className="section main-content">
