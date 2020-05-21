@@ -44,6 +44,22 @@ button.other {
   width: 66%;
 }
 
+.highlighted {
+  background-color: #FFF;
+  border: 2px solid #CAC7C9;
+  border-bottom: transparent;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #3C91E6;
+}
+
+.shaded {
+  background-color: #CAC7C9;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #7A7477;
+}
+
 // * Nav bar
 nav.navbar {
   background-color: #3C91E6;
@@ -100,7 +116,7 @@ section.section {
   }
 }
 
-
+// ? --- Users ---
 // * User account page
 section.user-account {
   display: flex;
@@ -166,5 +182,75 @@ section.user-account {
   }
 }
 
+// ? --- Expenses ---
+// * Expenses index
+section.expenses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h3 {
+    margin-bottom: 1rem;
+  }
+  div.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    width: 50%;
+    span, a {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+  div.options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    min-width: 250px;
+    min-height: 250px;
+    border: 2px solid #CAC7C9;
+    div.option {
+      padding: 0 1rem;
+      background-color: #3C91E6;
+      opacity: 0.7;
+      h2 {
+        font-size: 14px;
+        color: #FFF;
+      }
+    }
+    div.option-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 40px;
+      padding: 0 1rem;
+      div.buttons {
+        margin: 0 auto;
+        button {
+          margin: 0.5rem auto;
+          width: 80%;
+        }
+      }
+      
+    }
+  }
+}
+
+// * Expense show page
+div.expenses-show {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2, h3 {
+    font-size: 24px;
+  }
+  h3 {
+    font-weight: 300;
+    padding-bottom: 1rem;
+  }
+}
 
 @import '~bulma/bulma.sass';

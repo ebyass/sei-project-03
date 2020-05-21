@@ -36,12 +36,13 @@ class ExpenseShow extends React.Component{
     return (
       <section className="section">
         <Link to="/users/expenses">Back to Expenses Page</Link>
-        <div className="container">
+        <h1 className="accountable-brand">Expense details</h1>
+        <div className="container expenses-show">
           <h2>Description of the expense</h2>
           <h3>{expense.name}</h3>
           <h2>Expense was paid by</h2>
           <h3>{paidByName}</h3>
-          <h2>Expense is owed by</h2>
+          <h2>Expense was owed by</h2>
           <h3>{owedByName}</h3>
           <h2>Category of the expense</h2>
           <h3>{expense.category}</h3>
