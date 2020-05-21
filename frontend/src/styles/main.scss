@@ -67,6 +67,9 @@ nav.navbar {
     color: #FFF;
     font-size: 24px;
   }
+  a.plus {
+    margin: 0 0 0 780px;
+  }
 }
 
 span.logout {
@@ -182,6 +185,47 @@ section.user-account {
   }
 }
 
+// * User update page
+section.update {
+  background-color: #E9E5E8;
+  div.image {
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+  }
+  h2 {
+    font-size: 28px;
+    text-align: center;
+  }
+}
+
+// * User bank page
+section.bank {
+  padding: 1.5rem;
+  background-color: #E9E5E8;
+  div {
+    margin-top: 1rem;
+    text-align: center;
+    h2 {
+      font-size: 24px;
+    }
+    h1.accountable-brand {
+      font-size: 60px;
+      margin-bottom: -10px;
+    }
+    p {
+      font-weight: 300;
+    }
+    form {
+      width: 50%;
+      button.top-up {
+        margin-top: 10px;
+        width: 50%;
+      }
+    }
+  }
+}
+
 // ? --- Expenses ---
 // * Expenses index
 section.expenses {
@@ -251,6 +295,11 @@ div.expenses-show {
     font-weight: 300;
     padding-bottom: 1rem;
   }
+}
+
+// * Expenses create page
+section.new-expense {
+  padding: 1.5rem;
 }
 
 @import '~bulma/bulma.sass';

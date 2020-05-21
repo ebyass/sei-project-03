@@ -43,10 +43,14 @@ class UserUpdate extends React.Component {
   }
 
   render() {
+    if (!this.state.formData) return null
     return (
-      <section className="section">
-          <h2 className="has-text-centered">Update Account</h2>
-          <br />
+      <section className="section update">
+        <h2 className="accountable-brand">Update Account</h2>
+        <div className="image">
+          <img src={this.state.formData.image} />
+        </div>
+        <br />
         <div className="container">
           <div>
             <UserForm

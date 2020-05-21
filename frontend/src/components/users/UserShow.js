@@ -1,6 +1,8 @@
 import React from 'react'
 import { getSingleUser, changeBalance } from '../../lib/api'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 import BalanceButtons from './BalanceButtons'
 
@@ -85,15 +87,19 @@ class UserShow extends React.Component {
                 <p>{user.email}</p>
               </div>
             </div>
-            <span><Link to={`/users/${user._id}/update`}>Arrow</Link></span>
+            <Link to={`/users/${user._id}/update`}>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </Link>
           </div>
           <div className="settings">
             <h3>Notifications</h3>
-            <span>Arrow</span>
+            <FontAwesomeIcon icon={faChevronRight} />
           </div>
           <div className="settings">
             <h3>Bank</h3>
-            <span><Link to={`/users/${user._id}/bank`}>Arrow</Link></span>
+            <Link to={`/users/${user._id}/bank`}>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </Link>
           </div>
         </div>
       </section>
