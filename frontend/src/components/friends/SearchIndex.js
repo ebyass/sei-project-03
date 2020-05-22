@@ -1,99 +1,147 @@
 import React from 'react'
 
-import { getAllUsers, sendFriendRequest } from '../../lib/api'
+import { getAllUsers, sendFriendRequest, getUserFriends } from '../../lib/api'
 import SearchInput from './SearchInput'
-// import MiniUserProfile from './MiniUserProfile'
 import { getPayload } from '../../lib/_auth'
+
+
 
 
 class SearchIndex extends React.Component {
 
-	state = {
-		users: [],
-		searchTerm: '',
-		sentRequest: ''
-	}
+  state = {
+    users: [],
+    searchTerm: '',
 
-	async componentDidMount() {
-		try {
-			const res = await getAllUsers()
-			this.setState({ users: res.data })
-		} catch (err) {
-			console.log(err.message)
-		}
-	}
+  }
 
-	handleFilterChange = event => {
-		this.setState({ [event.target.name]: event.target.value })
-	}
+  async componentDidMount() {
+    try {
+      const res = await getAllUsers()
+      this.setState({ users: res.data })
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
 
-	filteredUsers = () => {
-		const { users, searchTerm } = this.state
-		const regexp = new RegExp(searchTerm, 'i')
-		return users.filter(user => {
-			return regexp.test(user.firstName) || regexp.test(user.lastName) || regexp.test(user.email) || regexp.test(user.phoneNumber)
-		})
-	}
+  handleFilterChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
 
-	handleClick = async event => {
-		event.preventDefault()
-		const userId = event.target.value
-		console.log('friendId', userId)
-		
-		try {
-			const res = await sendFriendRequest(userId)
-			console.log('res', res.data)
-			this.setState({sentRequest: 'Pending'})
-		} catch (err) {
-			console.log(err.message)
-		}
+  filteredUsers = () => {
+    const { users, searchTerm } = this.state
+    const regexp = new RegExp(searchTerm, 'i')
+    return users.filter(user => {
+      return regexp.test(user.firstName) || regexp.test(user.lastName) || regexp.test(user.email) || regexp.test(user.phoneNumber)
+    })
+  }
 
-	}
+  handleClick = async event => {
+    event.preventDefault()
+    const loggedInUserId = getPayload().sub
+    const userId = event.target.value
+    console.log('friendId', userId)
+    try {
+      const res = await sendFriendRequest(userId)
+      const getAllUsers = await getAllUsers()
 
+      this.setState({ users: getAllUsers.data })
+      console.log(res.data.friends, loggedInUserId)
 
+    } catch (err) {
+      console.log(err.message)
+    }
 
-
-	render() {
-		const { searchTerm } = this.state
-		return (
-			<>
-				<h1>Search Index</h1>
-				<div className="section">
-					<div className="container">
-						<div className="search-user-profile">
-
-							<SearchInput
-								handleFilterChange={this.handleFilterChange}
-								searchTerm={searchTerm}
-							/>
-
-							<>
-								{searchTerm ? <div>
-
-									{this.filteredUsers().filter(user => (
-										user.accepted !== false && user.accepted !== true
-									)).map(user => (
-										<div>
-											<p>{user.firstName} {user.lastName}</p>
-											<p>{user.image}</p>
-											<button
-												key={user._id}
-												name='sendRequestButton'
-												value={user._id}
-												onClick={this.handleClick}
-											>Send Request</button>
-										</div>
-									))}
+  }
 
 
-								</div> : <div><p>Search</p></div>}
-							</>
-						</div>
-					</div>
-				</div>
-			</>
-		)
-	}
+
+
+  render() {
+    const { searchTerm, friends } = this.state
+    const loggedInUserId = getPayload().sub
+    console.log(this.filteredUsers().map(user => (
+      user.friends.filter(user => (
+        user.user !== loggedInUserId
+      ))
+    )))
+    return (
+      <section className="section">
+        <h1 className="accountable-brand">Find new friends</h1>
+
+
+        <SearchInput
+          handleFilterChange={this.handleFilterChange}
+          searchTerm={searchTerm}
+        />
+
+
+        {searchTerm ?
+          <div>
+            {this.filteredUsers().map(user => (
+              <div>
+                <div>
+                  <p>{user.firstName}</p>
+                  <p>{user.lastName}</p>
+                  <img src={user.image} alt={user.firstName} />
+                </div>
+                <div>
+                  {user.friends.user === loggedInUserId && <button>Friends</button>}
+                  {user.friends.user !== loggedInUserId && <button>Friends</button>}
+                </div>
+              </div>
+            ))}
+            {/* {this.filteredUsers().map(user => {
+						return (
+							user.friends.map(friend => (
+							(friend.user === loggedInUserId ? (<div>{friend.firstName} {friend.lastName}</div>) : (<button>Add friend</button>)
+								
+							))	
+							
+						) */}
+				{/* 
+					{this.filteredUsers().map(user => (
+						user.friends.filter(friend => (
+							friend.friends.map(friend => (
+								
+								friend.user === loggedInUserId
+
+								<div>
+									<p>{user.firstName} {user.lastName}</p>
+									<img src={user.image} alt={user.firstName} />
+								</div>
+
+							))
+							
+							
+								
+							
+					))))} */}
+
+
+            {/* {this.filteredUsers().filter(user => (
+									user.friends.user !== loggedInUserId
+								)).map(user => (
+									<div>
+										<p>{user.firstName} {user.lastName}</p>
+										<img src={user.image} alt={user.firstName} />
+										<button
+											key={user.id}
+											name='sendRequestButton'
+											value={user.id}
+											onClick={this.handleClick}
+										>Add as Friend</button>
+									</div>
+								))} */}
+
+          </div> : <div><p>Search</p></div>
+        }
+
+
+
+      </section>
+    )
+  }
 }
 
 export default SearchIndex

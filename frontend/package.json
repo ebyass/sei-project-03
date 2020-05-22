@@ -18,6 +18,7 @@
     "react": "^16.13.1",
     "react-datepicker": "^2.16.0",
     "react-dom": "^16.13.1",
+    "react-notify-toast": "^0.5.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
@@ -25,7 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "seed": "node index.js"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import Notifications from 'react-notify-toast'
 
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
@@ -20,6 +21,7 @@ const App = () => {
   return ( 
     <BrowserRouter>
       <Navbar />
+      <Notifications />
       <Switch>
         <Route exact path="/" component={Home} />
 				<Route path="/users/friends/requests/pending" component={ShowFriendRequests}/>

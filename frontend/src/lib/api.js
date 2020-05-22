@@ -59,8 +59,9 @@ export const getUserFriends = userId => {
 }
 
 export const sendFriendRequest = userId => {
+	console.log('sending friend request')
 	console.log(withHeaders())
-		return axios.post(`${baseUrl}/users/${userId}/friends/requests`, userId, withHeaders())
+		return axios.post(`${baseUrl}/users/${userId}/friends/requests`, {}, withHeaders())
 }
 
 export const acceptFriendRequest = (userId, requestId) => {

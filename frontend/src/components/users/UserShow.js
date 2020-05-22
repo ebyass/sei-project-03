@@ -3,6 +3,7 @@ import { getSingleUser, changeBalance } from '../../lib/api'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { notify } from 'react-notify-toast'
 
 import BalanceButtons from './BalanceButtons'
 
@@ -34,6 +35,7 @@ class UserShow extends React.Component {
         const userId = this.props.match.params.id
         const requestData = { ...this.state.requestData, amount: event.target.value }
         const res = await changeBalance(userId, requestData)
+        notify.show('Balance succesfully topped up', 'success', 1500)
         this.setState({ user: res.data })
       }
     } catch (err) {
@@ -51,6 +53,7 @@ class UserShow extends React.Component {
     const userId = this.props.match.params.id
     try {
       const res = await changeBalance(userId, this.state.requestData)
+      notify.show('Balance succesfully topped up', 'success', 1500)
       this.setState({ user: res.data })
     } catch (err) {
       console.log(err.response)

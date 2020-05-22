@@ -2,6 +2,7 @@ import React from 'react'
 import { createExpense, getUserFriends } from '../../lib/api'
 import { getPayload } from '../../lib/_auth'
 import { Link } from 'react-router-dom'
+import { notify } from 'react-notify-toast'
 
 class ExpenseNew extends React.Component {
   state = {
@@ -26,11 +27,10 @@ class ExpenseNew extends React.Component {
       const expenseCreatorId = getPayload().sub
       const res = await getUserFriends(expenseCreatorId)
       this.setState({ friends: res.data, expenseCreatorId })
-      console.log(this.state)
-    } catch (err) {
-      console.log(err.message)
-    }
-  }
+		} catch (err) {
+			console.log(err.message)
+		}
+	}
 
   handleChange = event => {
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
@@ -100,10 +100,9 @@ class ExpenseNew extends React.Component {
     event.preventDefault()
     try {
       const res = await createExpense(this.state.formData)
-      console.log(res)
       this.props.history.push('/users/expenses')
     } catch (err) {
-      console.log(err.response)
+      notify.show('All fields are required before submitting an expense!', 'error', 2500)
     }
   }
 
