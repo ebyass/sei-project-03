@@ -43,10 +43,9 @@ class SearchIndex extends React.Component {
     const userId = event.target.value
     console.log('friendId', userId)
     try {
-      const res = await sendFriendRequest(userId)
-      console.log(res.data.friends, loggedInUserId)
-      // const getAllUsers = await getAllUsers()
-      this.setState({ users: res.data })
+      await sendFriendRequest(userId)
+      const { data } = await getAllUsers()
+      this.setState({ users: data })
     } catch (err) {
       console.log(err.message)
     }
