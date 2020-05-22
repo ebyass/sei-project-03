@@ -43,7 +43,7 @@ class ShowFriendsRequests extends React.Component {
 			const requestId = event.target.value
 			const res = await rejectFriendRequest(userId, requestId)
 			console.log('res', res.data)
-			window.location.reload()
+			// window.location.reload()
 		} catch (err) {
 			console.log(err.message)
 		}
@@ -62,8 +62,8 @@ class ShowFriendsRequests extends React.Component {
 						)).map(friend => (
 							<div>
 							<p>{friend.firstName}<p>
-								</p>{friend.lastName}</p>
-								<img src={friend.image} alt={friend.firstName} />
+								</p>{friend.user.lastName}</p>
+								<img src={friend.user.image} alt={friend.firstName} />
 							<button 
 							onClick={this.handleAccept}
 							name='acceptRequest'
@@ -80,8 +80,8 @@ class ShowFriendsRequests extends React.Component {
 						)).map(friend => (
 							<div>
 							<p>{friend.firstName}<p>
-								</p> {friend.lastName}</p>
-								<img src={friend.image} alt={friend.firstName} />
+								</p> {friend.user.lastName}</p>
+								<img src={friend.user.image} alt={friend.firstName} />
 							<button 
 					>Pending</button>
 						</div>

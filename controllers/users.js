@@ -13,7 +13,7 @@ async function usersIndex(req, res, next) {
 async function userShow(req, res, next) {
   const userId = req.params.id
   try {
-    const user = await User.findById(userId)
+    const user = await User.findById(userId).populate('friends.user')
     if (!user) throw new Error(notFound)
     res.status(200).json(user)
   } catch (err) {
@@ -162,7 +162,7 @@ async function showAllFriends(req, res) {
 async function showUserFriends(req, res) {
   try {
     const userId = req.currentUser._id
-    const user = await User.findById(userId)
+    const user = await User.findById(userId).populate('friends.user')
     const friends = user.friends
     res.status(202).json(friends)
   } catch (err) {

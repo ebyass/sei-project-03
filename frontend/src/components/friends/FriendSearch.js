@@ -32,9 +32,11 @@ class FriendSearch extends React.Component {
 		try {
 			const { friends, searchTerm } = this.state
 			const regexp = new RegExp(searchTerm, 'i')
-			return friends.filter(friend => {
-				return regexp.test(friend.firstName) && regexp.test(friend.lastName) || regexp.test(friend.email) || regexp.test(friend.phoneNumber)
+			const theArray = friends.filter(friend => {
+				return regexp.test(friend.firstName) || regexp.test(friend.lastName) || regexp.test(friend.email) || regexp.test(friend.phoneNumber)
 			})
+			console.log(theArray)
+			return theArray
 		} catch (err) {
 			console.log(err.message)
 		}
@@ -66,9 +68,9 @@ class FriendSearch extends React.Component {
 									friend.accepted === true
 								)).map(friend => (
 									<div>
-										<p>{friend.firstName && friend.lastName}</p>
-										{/* <p>{friend.lastName}</p> */}
-										<img src={friend.image} alt={friend.firstName} />
+										<p>{friend.user.firstName}</p> 
+										<p>{friend.user.lastName}</p>
+										<img src={friend.user.image} alt={friend.user.firstName} />
 										<button
 											key={friend._id}
 											name='createExpenseButton'
@@ -78,16 +80,20 @@ class FriendSearch extends React.Component {
 									</div>
 								))}
 								{this.filteredFriends().filter(friend => (
+
 									friend.accepted === false
-								)).map(friend => (
-									<div>
-										<p>{friend.firstName} </p>
-										<p>{friend.lastName}</p>
-										<img src={friend.image} alt={friend.firstName} />
-										<button
-										>Pending</button>
-									</div>
-								))}
+								)).map(friend => { 
+									console.log('friend', friend.firstName)
+									return (
+										<div>
+											<p>{friend.firstName} </p>
+											<p>{friend.user.lastName}</p>
+											<img src={friend.user.image} alt={friend.firstName} />
+											<button
+											>Pending</button>
+										</div>
+									)
+								})}
 
 							</div>
 						</div>
