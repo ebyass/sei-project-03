@@ -343,6 +343,9 @@ section.friends {
 
 section.search-all-users {
   padding: 1.5rem;
+  div.search-result {
+    display: flex;
+  }
 }
 
 @import '~bulma/bulma.sass';
