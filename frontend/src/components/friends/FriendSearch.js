@@ -71,11 +71,12 @@ class FriendSearch extends React.Component {
             {this.filteredFriends().filter(friend => (
               friend.accepted === true
             )).map(friend => (
-              <div>
-                <p>{friend.firstName && friend.lastName}</p>
-                {/* <p>{friend.lastName}</p> */}
+              <div className="option-content">
                 <img src={friend.image} alt={friend.firstName} />
+                <p>{friend.firstName} {friend.lastName}</p>
+                {/* <p>{friend.lastName}</p> */}
                 <button
+                  className="button blue"
                   key={friend._id}
                   name='createExpenseButton'
                   value={friend._id}
@@ -86,12 +87,10 @@ class FriendSearch extends React.Component {
             {this.filteredFriends().filter(friend => (
               friend.accepted === false
             )).map(friend => (
-              <div>
-                <p>{friend.firstName} </p>
-                <p>{friend.lastName}</p>
+              <div className="option-content">
                 <img src={friend.image} alt={friend.firstName} />
-                <button
-                >Pending</button>
+                <p>{friend.firstName} {friend.lastName}</p>
+                <button className="button blue">Re-send</button>
               </div>
             ))}
 

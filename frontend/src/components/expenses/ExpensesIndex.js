@@ -59,7 +59,7 @@ class ExpensesIndex extends React.Component {
     return (
       <section className="section expenses">
         <h1 className="accountable-brand">Expenses</h1>
-        <Link to="/users/expenses/new"><h3>Create New</h3></Link>
+        <Link to="/users/expenses/new"><h3>Create new expense</h3></Link>
         <div className="tabs">
           <span className="accountable-brand highlighted">Expenses</span>
           <Link to="/users/expenses/pending" className="accountable-brand shaded">Pending expenses</Link>

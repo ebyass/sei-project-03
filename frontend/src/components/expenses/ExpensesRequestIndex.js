@@ -62,7 +62,7 @@ class ExpensesRequestIndex extends React.Component {
       console.log('Deletion did not work')
     }
   }
-  
+
   handleCancelReject = () => {
     this.setState({ expenseToDeleteId: '', isRejected: true })
   }
@@ -70,7 +70,8 @@ class ExpensesRequestIndex extends React.Component {
   render() {
     return (
       <section className="section expenses">
-        <Link to="/users/expenses/new"><h3>Create New Expense</h3></Link>
+        <h1 className="accountable-brand">Expenses</h1>
+        <Link to="/users/expenses/new"><h3>Create new expense</h3></Link>
         <div className="tabs">
           <Link to="/users/expenses" className="accountable-brand shaded">Expenses</Link>
           <span className="accountable-brand highlighted">Pending expenses</span>
@@ -82,16 +83,16 @@ class ExpensesRequestIndex extends React.Component {
           <div className="option-content">
             {this.state.pendingExpensesToAccept.map(expense => (
               <>
-              <Link to={`/users/expenses/${expense._id}`}>
-              <ExpenseIcon {...expense} />
-                <label key={expense._id} value={expense.user}>
-                  <p>You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}</p>
+                <Link to={`/users/expenses/${expense._id}`}>
+                  <ExpenseIcon {...expense} />
+                  <label key={expense._id} value={expense.user}>
+                    <p>You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}</p>
                   </label>
-              </Link>
-                  <div className="buttons">
+                </Link>
+                <div className="buttons">
                   <button value={expense._id} onClick={this.handleAccept} className="button blue">Accept Expense</button>
                   <button value={expense._id} onClick={this.handleRejectButton} className="button other">Reject Expense</button>
-                  </div>
+                </div>
               </>
             ))}
           </div>
@@ -112,11 +113,11 @@ class ExpensesRequestIndex extends React.Component {
               <section className="modal-card-body has-text-centered">
                 <div className="modal-text">Warning! This will delete the expense for you and your friend.<br /> Are you sure?</div>
                 <div className="buttons is-centered">
-                <button value={this.state.expenseToDeleteId} onClick={this.handleReject} className="button red">Yes. Delete the expense</button>
-                <button onClick={this.handleCancelReject} className="button blue">No. Keep the expense</button>
+                  <button value={this.state.expenseToDeleteId} onClick={this.handleReject} className="button red">Yes. Delete the expense</button>
+                  <button onClick={this.handleCancelReject} className="button blue">No. Keep the expense</button>
                 </div>
               </section>
-              
+
             </div>
           </div>
         </div>
