@@ -72,9 +72,8 @@ class ExpensesIndex extends React.Component {
             {this.state.expensesOwedByUser.map(expense => (
               <>
               <Link to={`/users/expenses/${expense._id}`}>
-                <ExpenseIcon {...expense} />
-                <label key={expense._id} value={expense.user}>
-                  <p>You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}</p>
+                <label className="withicon" key={expense._id} value={expense.user}>
+                <ExpenseIcon {...expense} /><p>You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}</p>
                   </label>
               </Link>
                   <div className="buttons">
@@ -88,7 +87,7 @@ class ExpensesIndex extends React.Component {
             </div>
             <div className="option-content">
             {this.state.expensesOwedToUser.map(expense => (
-              <Link to={`/users/expenses/${expense._id}`}>
+              <Link key={expense._id} to={`/users/expenses/${expense._id}`}>
                 <ExpenseIcon {...expense} />
                 <label key={expense._id} value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
               </Link>
@@ -112,6 +111,7 @@ class ExpensesIndex extends React.Component {
             <div className="option-content">
             {this.state.expensesSettledWithUser.map(expense => (
               <Link to={`/users/expenses/${expense._id}`}>
+                <ExpenseIcon {...expense} />
                 <label key={expense._id} value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
               </Link>
             ))}

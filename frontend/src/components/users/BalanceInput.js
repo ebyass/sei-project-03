@@ -6,6 +6,7 @@ const BalanceInput = ({ handleChange, handleSubmit, buttonText }) => {
       <label className="label">Enter amount:</label>
       <input
         className="input"
+        type="number"
         placeholder=""
         onChange={handleChange}
       />

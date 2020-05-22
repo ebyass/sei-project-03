@@ -57,9 +57,9 @@ class ExpenseShow extends React.Component{
           {expense.settled === true && <h3>Yes</h3>}
           {expense.settled === false && <h3>No</h3>}
           <h2>Date created</h2>
-          <h3>{expense.createdAt}</h3>
+          <h3>{new Date(expense.createdAt).toDateString()}</h3>
           <h2>Due date</h2>
-          <h3>{expense.dueDate}</h3>
+          <h3>{new Date(expense.dueDate).toDateString()}</h3>
         </div>
       </section>
     )

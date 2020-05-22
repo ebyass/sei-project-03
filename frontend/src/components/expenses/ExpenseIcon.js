@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlane, faBed, faUtensils, faFileAlt, faShoppingBag, faHeart, faShoppingCart, faTicketAlt, faGlobe  } from '@fortawesome/free-solid-svg-icons'
 
 const ExpenseIcon = expense => (
-  <div>
+  <div className="icon">
     {expense.category === 'transport' && <FontAwesomeIcon icon={faPlane} />}
     {expense.category === 'accomodation' && <FontAwesomeIcon icon={faBed} />}
     {expense.category === 'eating out' && <FontAwesomeIcon icon={faUtensils} />}

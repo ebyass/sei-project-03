@@ -185,6 +185,7 @@ class ExpenseNew extends React.Component {
                 <div className="control">
                   <input
                     className="input"
+                    type="number"
                     placeholder="Total cost of expense"
                     name="totalCost"
                     onChange={this.handleChange}

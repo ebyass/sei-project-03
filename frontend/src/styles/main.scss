@@ -295,6 +295,15 @@ section.expenses {
   }
 }
 
+label.withicon {
+  display: inline-flex;
+}
+
+.icon {
+  display: inline-block;
+  padding-right: 10px;
+}
+
 .modal-text {
   padding: 20px;
 }
