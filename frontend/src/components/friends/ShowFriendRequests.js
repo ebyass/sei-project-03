@@ -23,17 +23,17 @@ class ShowFriendsRequests extends React.Component {
     }
   }
 
-  handleAccept = async event => {
-    console.log('this.state', this.state)
-    try {
-      const userId = getPayload().sub
-      const requestId = event.target.value
-      const res = await acceptFriendRequest(userId, requestId)
-      console.log('res', res.data)
-      window.location.reload()
-    } catch (err) {
-      console.log(err.message)
-    }
+	handleAccept = async event => {
+		console.log('this.state', this.state)
+		try {
+			const userId = getPayload().sub
+			const requestId = event.target.value
+			const res = await acceptFriendRequest(userId, requestId)
+			console.log('res', res.data)
+			
+		} catch (err) {
+			console.log(err.message)
+		}
 
   }
 
