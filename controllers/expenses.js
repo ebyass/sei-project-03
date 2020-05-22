@@ -34,7 +34,7 @@ async function expensesCreate(req, res) {
     res.status(201).json(createdExpense)
   } catch (err) {
     if (err.message === 'not confirmed') {
-      res.status(403).json({ 'message': 'The other user has not yet accepted your friend request' })
+      res.status(403).json({ 'message': 'You and the other user are not confirmed friends' })
     } else {
       res.status(404).json(err)
     }

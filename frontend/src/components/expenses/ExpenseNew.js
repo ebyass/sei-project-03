@@ -99,10 +99,14 @@ class ExpenseNew extends React.Component {
   handleSubmit = async event => { // * Need error validation/messaging implemented (fields not filled in, etc. )
     event.preventDefault()
     try {
-      const res = await createExpense(this.state.formData)
+      await createExpense(this.state.formData)
       this.props.history.push('/users/expenses')
     } catch (err) {
-      notify.show('All fields are required before submitting an expense!', 'error', 2500)
+      if (err.response.status === 403) {
+        notify.show('The other user must accept your friend request before creating an expense', 'error', 2500)
+      } else {
+        notify.show('All fields are required before submitting an expense!', 'error', 2500)
+      }      
     }
   }
 
