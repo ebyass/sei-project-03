@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { getAllUsers, sendFriendRequest, getUserFriends } from '../../lib/api'
 import SearchInput from './SearchInput'
@@ -66,7 +67,8 @@ class SearchIndex extends React.Component {
       ))
     )))
     return (
-      <section className="section">
+      <section className="section search-all-users">
+        <Link to="/users/friends">Go back</Link>
         <h1 className="accountable-brand">Find new friends</h1>
 
 
@@ -134,7 +136,7 @@ class SearchIndex extends React.Component {
 									</div>
 								))} */}
 
-          </div> : <div><p>Search</p></div>
+          </div> : <div></div>
         }
 
 
