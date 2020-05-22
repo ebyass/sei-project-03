@@ -3,6 +3,7 @@ import { getExpensesOwedByUser, getExpensesOwedToUser, getUserFriends, getSettle
 import { getPayload } from '../../lib/_auth'
 import { Link } from 'react-router-dom'
 import { notify } from 'react-notify-toast'
+import ExpenseIcon from './ExpenseIcon'
 
 class ExpensesIndex extends React.Component {
   state = {
@@ -44,7 +45,7 @@ class ExpensesIndex extends React.Component {
   handleAccept = async event => { // * Need to bring in error validation/messaging (i.e. not enough balance etc.)
     const expenseId = event.target.value
     try {
-      const res = await settleExpense(expenseId)
+      await settleExpense(expenseId)
       notify.show('Expense settled', 'success', 1500)
       const owedExpenses = await getExpensesOwedByUser()
       const settledExpenses = await getSettledExpenses()
@@ -70,6 +71,7 @@ class ExpensesIndex extends React.Component {
             {this.state.expensesOwedByUser.map(expense => (
               <>
               <Link to={`/users/expenses/${expense._id}`}>
+                <ExpenseIcon {...expense} />
                 <label key={expense._id} value={expense.user}>
                   <p>You owe {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}</p>
                   </label>
@@ -86,6 +88,7 @@ class ExpensesIndex extends React.Component {
             <div className="option-content">
             {this.state.expensesOwedToUser.map(expense => (
               <Link to={`/users/expenses/${expense._id}`}>
+                <ExpenseIcon {...expense} />
                 <label key={expense._id} value={expense.user}>{this.findFriendsName(expense.owedBy)} owes you £{expense.amountOwed.toFixed(2)} for {expense.name}<br /></label>
               </Link>
             ))}
@@ -96,6 +99,7 @@ class ExpensesIndex extends React.Component {
             <div className="option-content">
             {this.state.expensesSettledByUser.map(expense => (
               <Link to={`/users/expenses/${expense._id}`}>
+                <ExpenseIcon {...expense} />
                 <label key={expense._id} value={expense.user}>You paid {this.findFriendsName(expense.paidBy)} £{expense.amountOwed.toFixed(2)} for {expense.name}</label>
                 <br />
               </Link>

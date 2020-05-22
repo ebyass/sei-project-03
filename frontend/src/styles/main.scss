@@ -33,6 +33,12 @@ button.blue {
   border-bottom: 3px solid #245AA7;
 }
 
+button.red {
+  background-color: rgb(218, 17, 17);
+  color: #FFF;
+  border-bottom: 3px solid rgb(167, 36, 36);
+}
+
 button.other {
   background-color: #E9E5E8;
   color: #7A7477;
@@ -117,6 +123,9 @@ section.section {
     margin-bottom: 1em;
   } 
   button.blue {
+    width: 100%;
+  }
+  button.red {
     width: 100%;
   }
 }
@@ -282,10 +291,15 @@ section.expenses {
           width: 80%;
         }
       }
-      
     }
   }
 }
+
+.modal-text {
+  padding: 20px;
+}
+
+$modal-card-body-background-color: #E9E5E8 !default;
 
 // * Expense show page
 div.expenses-show {
