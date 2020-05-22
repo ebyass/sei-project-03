@@ -46,9 +46,9 @@ class ExpenseShow extends React.Component{
           <h3>{owedByName}</h3>
           <h2>Category of the expense</h2>
           <h3>{expense.category}</h3>
-          <h2>Total cost of the expense</h2>
+          <h2>Total cost</h2>
           <h3>£{expense.totalCost}</h3>
-          <h2>Amount owed on the expense</h2>
+          <h2>Amount owed</h2>
           <h3>£{expense.amountOwed}</h3>
           <h2>Has the expense been accepted?</h2>
           {expense.accepted === true && <h3>Yes</h3>}
@@ -56,9 +56,9 @@ class ExpenseShow extends React.Component{
           <h2>Has the expense been settled?</h2>
           {expense.settled === true && <h3>Yes</h3>}
           {expense.settled === false && <h3>No</h3>}
-          <h2>Date expense was created</h2>
+          <h2>Date created</h2>
           <h3>{expense.createdAt}</h3>
-          <h2>Due date of the expense</h2>
+          <h2>Due date</h2>
           <h3>{expense.dueDate}</h3>
         </div>
       </section>

@@ -62,7 +62,7 @@ const UserForm = ({ formData, handleChange, handleSubmit }) => (
         </div>
       </div>
       <div className="field">
-        <button type="submit" className="button is-fullwidth">Save changes</button>
+        <button type="submit" className="button is-fullwidth blue">Save changes</button>
       </div>
     </form>
   </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { getSingleUser, editUser } from '../../lib/api'
 
 import UserForm from './UserForm'
@@ -43,10 +44,16 @@ class UserUpdate extends React.Component {
   }
 
   render() {
+    if (!this.state.formData) return null
+    const userId = this.props.match.params.id
     return (
-      <section className="section">
-          <h2 className="has-text-centered">Update Account</h2>
-          <br />
+      <section className="section update">
+        <Link to={`/users/${userId}`}>Go back</Link>
+        <h2 className="accountable-brand">Update Account</h2>
+        <div className="image">
+          <img src={this.state.formData.image} />
+        </div>
+        <br />
         <div className="container">
           <div>
             <UserForm
