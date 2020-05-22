@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { getSingleUser } from '../../lib/api'
 import SearchInput from './SearchInput'
 import { getPayload } from '../../lib/_auth'
@@ -7,26 +8,26 @@ import { getPayload } from '../../lib/_auth'
 
 class FriendSearch extends React.Component {
 
-	state = {
-		friends: [],
-		searchTerm: ''
-	}
+  state = {
+    friends: [],
+    searchTerm: ''
+  }
 
-	async componentDidMount() {
-		try {
-			const userId = getPayload().sub
-			const res = await getSingleUser(userId)
-			console.log('res', res.data.friends)
-			this.setState({ friends: res.data.friends })
-		} catch (err) {
-			console.log(err.message)
-		}
-	}
+  async componentDidMount() {
+    try {
+      const userId = getPayload().sub
+      const res = await getSingleUser(userId)
+      console.log('res', res.data.friends)
+      this.setState({ friends: res.data.friends })
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
 
 
-	handleFilterChange = event => {
-		this.setState({ [event.target.name]: event.target.value })
-	}
+  handleFilterChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
 
 	filteredFriends = () => {
 		try {
@@ -41,18 +42,18 @@ class FriendSearch extends React.Component {
 			console.log(err.message)
 		}
 
-	}
+  }
 
-	handleClick = async event => {
-		event.preventDefault()
-		const userId = event.target.value
-		console.log('userId', userId, 'with', event.target.name)
-		this.props.history.push(`/users/expenses/new/${userId}`)
-	}
+  handleClick = async event => {
+    event.preventDefault()
+    const userId = event.target.value
+    console.log('userId', userId, 'with', event.target.name)
+    this.props.history.push(`/users/expenses/new/${userId}`)
+  }
 
 
 	render() {
-		const { searchTerm, friends } = this.state
+		const { searchTerm } = this.state
 		return (
 			<>
 				<h1>FriendSearch</h1>
@@ -68,9 +69,9 @@ class FriendSearch extends React.Component {
 									friend.accepted === true
 								)).map(friend => (
 									<div>
-										<p>{friend.user.firstName}</p> 
+										<p>{friend.firstName}</p> 
 										<p>{friend.user.lastName}</p>
-										<img src={friend.user.image} alt={friend.user.firstName} />
+										<img src={friend.user.image} alt={friend.firstName} />
 										<button
 											key={friend._id}
 											name='createExpenseButton'
@@ -94,14 +95,13 @@ class FriendSearch extends React.Component {
 										</div>
 									)
 								})}
-
-							</div>
-						</div>
-					</div>
-				</div>
+</div>
+          </div>
+        </div>
+      </div>
 			</>
-		)
-	}
+    )
+  }
 }
 
 export default FriendSearch

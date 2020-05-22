@@ -1,26 +1,27 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { getUserFriends, acceptFriendRequest, rejectFriendRequest } from '../../lib/api'
 import { getPayload } from '../../lib/_auth'
 
 
 class ShowFriendsRequests extends React.Component {
 
-	state = {
-		friends: [],
-		madeTheRequest: [],
-		receivedTheRequest: []
-	}
+  state = {
+    friends: [],
+    madeTheRequest: [],
+    receivedTheRequest: []
+  }
 
-	async componentDidMount() {
-		try {
-			const userId = getPayload().sub
-			const res = await getUserFriends(userId)
-			console.log('res', res.data)
-			this.setState({ friends: res.data })
-		} catch (err) {
-			console.log(err)
-		}
-	}
+  async componentDidMount() {
+    try {
+      const userId = getPayload().sub
+      const res = await getUserFriends(userId)
+      console.log('res', res.data)
+      this.setState({ friends: res.data })
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
 	handleAccept = async event => {
 		console.log('this.state', this.state)
@@ -34,7 +35,7 @@ class ShowFriendsRequests extends React.Component {
 			console.log(err.message)
 		}
 
-	}
+  }
 
 	handleReject = async event => {
 		console.log('this.state', this.state)
