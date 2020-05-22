@@ -100,10 +100,10 @@ class SearchIndex extends React.Component {
           {this.filteredUsers().map(user => (
             <div className="search-result">
               <img src={user.image} alt={user.firstName} />
-              <p>{user.firstName}</p>
-              <p>{user.lastName}</p>
+              <div className="result-text-and-button">
+              <p>{user.firstName} {user.lastName}</p>
               {this.isFriend(user.friends) && <button
-                className="other"
+                className=" button other"
                 name='createExpense'
                 value={user._id}
                 onClick={this.handleCreateExpenseClick}
@@ -117,7 +117,7 @@ class SearchIndex extends React.Component {
 
               {!this.isFriend(user.friends) &&
                 <button
-                  className="blue"
+                  className="button blue"
                   key={user.id}
                   name='sendRequestButton'
                   value={user.id}
@@ -125,7 +125,7 @@ class SearchIndex extends React.Component {
                 >Add as Friend
 								</button>
               }
-
+              </div>
             </div>
           ))}
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { getExpensesOwedByUser, getExpensesOwedToUser, getUserFriends, getSettledExpenses, getSettledWithExpenses, settleExpense } from '../../lib/api'
+import { getExpensesOwedByUser, getExpensesOwedToUser, getUserFriends2, getSettledExpenses, getSettledWithExpenses, settleExpense } from '../../lib/api'
 import { getPayload } from '../../lib/_auth'
 import { Link } from 'react-router-dom'
 import { notify } from 'react-notify-toast'
@@ -21,7 +21,7 @@ class ExpensesIndex extends React.Component {
       const owedToExpenses = await getExpensesOwedToUser()
       const settledExpenses = await getSettledExpenses()
       const settledWithExpenses = await getSettledWithExpenses()
-      const friends = await getUserFriends(userId)
+      const friends = await getUserFriends2(userId)
       this.setState(
         {
           expensesOwedByUser: owedExpenses.data,
@@ -31,6 +31,7 @@ class ExpensesIndex extends React.Component {
           friends: friends.data
         }
       )
+      console.log(this.state)
     } catch (err) {
       console.log(err.message)
     }
@@ -59,7 +60,7 @@ class ExpensesIndex extends React.Component {
     return (
       <section className="section expenses">
         <h1 className="accountable-brand">Expenses</h1>
-        <Link to="/users/expenses/new"><h3>Create New</h3></Link>
+        <Link to="/users/expenses/new"><h3>Create new expense</h3></Link>
         <div className="tabs">
           <span className="accountable-brand highlighted">Expenses</span>
           <Link to="/users/expenses/pending" className="accountable-brand shaded">Pending expenses</Link>

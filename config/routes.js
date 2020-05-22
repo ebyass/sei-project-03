@@ -54,6 +54,10 @@ router.route('/users/:id')
 router.route('/users/:id/friends')
   .get(secureRoute, users.showUserFriends) //* <-- Just added an s in users 
 
+router.route('/users2/:id/friends')
+  .get(secureRoute, users.showUserFriends2) //* <-- Just added an s in users 
+
+
 router.route('/users/:id/friends/requests')
   .get(users.friendRequestsShow)
   .post(secureRoute, users.friendRequestCreate)

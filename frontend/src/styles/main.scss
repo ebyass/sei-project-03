@@ -214,6 +214,8 @@ section.update {
 
 // * User bank page
 section.bank {
+  height: 100vh;
+  min-height: 100%;
   padding: 1.5rem;
   background-color: #E9E5E8;
   div {
@@ -353,13 +355,24 @@ section.friends {
   div.options {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     width: 50%;
     min-width: 250px;
     min-height: 250px;
     border: 2px solid #CAC7C9;
     form {
       padding: 0.5rem;
+    }
+    div.option-content {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      min-height: 40px;
+      margin-bottom: 10px;
+      padding: 0 1rem;
+      button {
+        margin: 0.5rem auto;
+        width: 30%;
+      }
     }
   }
 }
@@ -368,6 +381,17 @@ section.search-all-users {
   padding: 1.5rem;
   div.search-result {
     display: flex;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    div.result-text-and-button {
+      display: flex;
+      justify-content: space-between;
+      margin-left: 3rem;
+      width: 100%;
+      button {
+        width: 200px;
+      }
+    }
   }
 }
 

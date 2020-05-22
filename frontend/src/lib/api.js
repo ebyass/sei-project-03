@@ -58,6 +58,10 @@ export const getUserFriends = userId => {
   return axios.get(`${baseUrl}/users/${userId}/friends`, withHeaders())
 }
 
+export const getUserFriends2 = userId => {
+  return axios.get(`${baseUrl}/users2/${userId}/friends`, withHeaders())
+}
+
 export const sendFriendRequest = userId => {
 	console.log('sending friend request')
 	console.log(withHeaders())

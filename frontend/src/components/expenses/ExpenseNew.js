@@ -1,5 +1,5 @@
 import React from 'react'
-import { createExpense, getUserFriends } from '../../lib/api'
+import { createExpense, getUserFriends2 } from '../../lib/api'
 import { getPayload } from '../../lib/_auth'
 import { Link } from 'react-router-dom'
 import { notify } from 'react-notify-toast'
@@ -25,7 +25,7 @@ class ExpenseNew extends React.Component {
   async componentDidMount() {
     try {
       const expenseCreatorId = getPayload().sub
-      const res = await getUserFriends(expenseCreatorId)
+      const res = await getUserFriends2(expenseCreatorId)
       this.setState({ friends: res.data, expenseCreatorId })
 		} catch (err) {
 			console.log(err.message)

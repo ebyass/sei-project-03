@@ -33,9 +33,11 @@ class FriendSearch extends React.Component {
     try {
       const { friends, searchTerm } = this.state
       const regexp = new RegExp(searchTerm, 'i')
-      return friends.filter(friend => {
-        return regexp.test(friend.firstName) && regexp.test(friend.lastName) || regexp.test(friend.email) || regexp.test(friend.phoneNumber)
+      const theArray = friends.filter(friend => {
+        return regexp.test(friend.firstName) || regexp.test(friend.lastName) || regexp.test(friend.email) || regexp.test(friend.phoneNumber)
       })
+      console.log(theArray)
+      return theArray
     } catch (err) {
       console.log(err.message)
     }
@@ -51,7 +53,7 @@ class FriendSearch extends React.Component {
 
 
   render() {
-    const { searchTerm, friends } = this.state
+    const { searchTerm } = this.state
     return (
       <section className="section friends">
         <h1 className="accountable-brand">Friends</h1>
@@ -71,11 +73,12 @@ class FriendSearch extends React.Component {
             {this.filteredFriends().filter(friend => (
               friend.accepted === true
             )).map(friend => (
-              <div>
-                <p>{friend.firstName && friend.lastName}</p>
+              <div className="option-content">
+                <img src={friend.user.image} alt={friend.firstName} />
+                <p>{friend.firstName} {friend.user.lastName}</p>
                 {/* <p>{friend.lastName}</p> */}
-                <img src={friend.image} alt={friend.firstName} />
                 <button
+                  className="button blue"
                   key={friend._id}
                   name='createExpenseButton'
                   value={friend._id}
@@ -85,16 +88,16 @@ class FriendSearch extends React.Component {
             ))}
             {this.filteredFriends().filter(friend => (
               friend.accepted === false
-            )).map(friend => (
-              <div>
-                <p>{friend.firstName} </p>
-                <p>{friend.lastName}</p>
-                <img src={friend.image} alt={friend.firstName} />
-                <button
-                >Pending</button>
-              </div>
-            ))}
-
+            )).map(friend => {
+              console.log('friend', friend.firstName)
+              return (
+                <div>
+                  <img src={friend.user.image} alt={friend.firstName} />
+                  <p>{friend.firstName} {friend.user.lastName}</p>
+                  <button className="button blue">Pending</button>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
