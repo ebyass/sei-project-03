@@ -51,7 +51,7 @@ class UserUpdate extends React.Component {
         <Link to={`/users/${userId}`}>Go back</Link>
         <h2 className="accountable-brand">Update Account</h2>
         <div className="image">
-          <img src={this.state.formData.image} />
+          <img src={this.state.formData.image} alt={this.state.formData.firstName}/>
         </div>
         <br />
         <div className="container">
