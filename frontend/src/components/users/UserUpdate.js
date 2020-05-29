@@ -1,9 +1,10 @@
 import React from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { getSingleUser, editUser } from '../../lib/api'
-
 import UserForm from './UserForm'
-
+const uploadUrl = `${process.env.REACT_APP_CLOUDINARY_URL}`
+const uploadPreset = `${process.env.REACT_APP_CLOUDINARY_PRESET}`
 class UserUpdate extends React.Component {
   state = {
     formData: {
@@ -14,7 +15,6 @@ class UserUpdate extends React.Component {
       image: ''
     }
   }
-
   async componentDidMount() {
     const userId = this.props.match.params.id
     try {
@@ -24,13 +24,20 @@ class UserUpdate extends React.Component {
       console.log(err)
     }
   }
-
   handleChange = event => {
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
     console.log(formData)
     this.setState({ formData })
   }
-
+  handleUpload = async event => {
+    const data = new FormData()
+    data.append('file', event.target.files[0])
+    data.append('upload_preset', uploadPreset)
+    console.log(data)
+    const res = await axios.post(uploadUrl, data)
+    const formData = { ...this.state.formData, image: res.data.url }
+    this.setState({ formData }, console.log(this.state))
+  }
   handleSubmit = async event => {
     event.preventDefault()
     const userId = this.props.match.params.id
@@ -42,7 +49,6 @@ class UserUpdate extends React.Component {
       console.log(err.response)
     }
   }
-
   render() {
     if (!this.state.formData) return null
     const userId = this.props.match.params.id
@@ -60,6 +66,7 @@ class UserUpdate extends React.Component {
               formData={this.state.formData}
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
+              handleUpload={this.handleUpload}
             />
           </div>
         </div>
@@ -67,5 +74,4 @@ class UserUpdate extends React.Component {
     )
   }
 }
-
 export default UserUpdate

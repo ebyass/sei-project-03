@@ -84,7 +84,7 @@ class UserShow extends React.Component {
           <h3>Settings</h3>
           <div className="settings">
             <div className="user-info">
-              <img src="#" alt={`${user.firstName}'s profile`} />
+              <img src={user.image} alt={`${user.firstName}'s profile`} />
               <div>
                 <h3>{user.firstName} {user.lastName}</h3>
                 <p>{user.email}</p>

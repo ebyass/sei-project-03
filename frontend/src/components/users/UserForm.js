@@ -1,15 +1,16 @@
 import React from 'react'
 import ImageUpload from '../common/ImageUploader'
-
-const UserForm = ({ formData, handleChange, handleSubmit }) => (
+const UserForm = ({ formData, handleChange, handleUpload, handleSubmit }) => (
   <div className="columns">
     <form onSubmit={handleSubmit} className="column is-half is-offset-one-quarter box">
       <div className="field">
         <div className="control">
           <ImageUpload
             onChange={handleChange}
+            handleUpload={handleUpload}
             name="image"
             value={formData.image}
+            image={formData.image}
           />
         </div>
       </div>
@@ -67,5 +68,4 @@ const UserForm = ({ formData, handleChange, handleSubmit }) => (
     </form>
   </div>
 )
-
 export default UserForm

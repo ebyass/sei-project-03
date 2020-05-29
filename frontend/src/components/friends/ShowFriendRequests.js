@@ -30,7 +30,7 @@ class ShowFriendsRequests extends React.Component {
 			const requestId = event.target.value
 			const res = await acceptFriendRequest(userId, requestId)
 			console.log('res', res.data)
-			
+			window.location.reload()
 		} catch (err) {
 			console.log(err.message)
 		}
@@ -44,7 +44,7 @@ class ShowFriendsRequests extends React.Component {
 			const requestId = event.target.value
 			const res = await rejectFriendRequest(userId, requestId)
 			console.log('res', res.data)
-			// window.location.reload()
+			window.location.reload()
 		} catch (err) {
 			console.log(err.message)
 		}
