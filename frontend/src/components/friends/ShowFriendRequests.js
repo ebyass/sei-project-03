@@ -16,7 +16,6 @@ class ShowFriendsRequests extends React.Component {
     try {
       const userId = getPayload().sub
       const res = await getUserFriends(userId)
-      console.log('res', res.data)
       this.setState({ friends: res.data })
     } catch (err) {
       console.log(err)
@@ -24,12 +23,10 @@ class ShowFriendsRequests extends React.Component {
   }
 
 	handleAccept = async event => {
-		console.log('this.state', this.state)
 		try {
 			const userId = getPayload().sub
 			const requestId = event.target.value
 			const res = await acceptFriendRequest(userId, requestId)
-			console.log('res', res.data)
 			window.location.reload()
 		} catch (err) {
 			console.log(err.message)
@@ -38,12 +35,10 @@ class ShowFriendsRequests extends React.Component {
   }
 
 	handleReject = async event => {
-		console.log('this.state', this.state)
 		try {
 			const userId = getPayload().sub
 			const requestId = event.target.value
 			const res = await rejectFriendRequest(userId, requestId)
-			console.log('res', res.data)
 			window.location.reload()
 		} catch (err) {
 			console.log(err.message)

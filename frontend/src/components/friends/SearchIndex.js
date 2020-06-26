@@ -41,7 +41,6 @@ class SearchIndex extends React.Component {
     event.preventDefault()
     const loggedInUserId = getPayload().sub
     const userId = event.target.value
-    console.log('friendId', userId)
     try {
       await sendFriendRequest(userId)
       const { data } = await getAllUsers()
@@ -57,9 +56,7 @@ class SearchIndex extends React.Component {
 
   isFriend = friends => {
     const loggedInUserId = getPayload().sub
-
     return friends.some(friend => friend.user === loggedInUserId)
-
   }
 
   ifNotFriends = friends => {
