@@ -2,7 +2,7 @@
 
 # Brief
 
-In 8 days and in groups of 3 we had to:
+In 8 days and in groups of 3 we had to:<
 *Build a full-stack MERN application* by creating your own backend and your own front-end
 *Use an Express API* to serve your data from a Mongo database
 *Consume your API with a separate front-end* built with React
