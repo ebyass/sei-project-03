@@ -1,4 +1,4 @@
-# sei-group-project-3
+# Project 3: Full-Stack MERN App
 
 # Brief
 
