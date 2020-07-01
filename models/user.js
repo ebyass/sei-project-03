@@ -37,7 +37,7 @@ userSchema
   })
 	
 	
-userSchema.methods.validatePassword = function(password) { // * <-- a custom method for the user model to validate incoming passowrds of users trying to login against their saved one in the db
+userSchema.methods.validatePassword = function(password) { // * <-- a custom method for the user model to validate incoming passwords of users trying to login against their saved one in the db
   return bcrypt.compareSync(password, this.password)
 }
 userSchema // * <--- sets virtual field on model called _passwordConfirmation
