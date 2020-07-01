@@ -33,6 +33,7 @@ In 8 days and in groups of 3 we had to:
 # Contributors
 
 [Emma Phillips](https://github.com/emmajphillips)
+
 [Alex Wheldon](https://github.com/awheldon)
 
 
@@ -50,11 +51,11 @@ Use the clone button to download the source code. In the terminal enter the foll
 
 `!-- Run the app in your localhost: -->`
 
-`mongod --dbpath ~/data/db`
+`$ mongod --dbpath ~/data/db`
 
 `!-- cd frontend && root of project -->`
 
-`npm run start` 
+`$ npm run start` 
 
 `<!-- Check the console for any issues and if there are check the package.json for any dependencies missing -->`# 
 
