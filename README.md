@@ -2,19 +2,23 @@
 
 # Brief
 
-In 8 days and in groups of 3 we had to:
+In groups of 3 we had to:
 
-**Build a full-stack MERN application** by creating your own backend and your own front-end
+* **Build a full-stack MERN application** by creating your own backend and your own front-end
 
-**Use an Express API** to serve your data from a Mongo database
+* **Use an Express API** to serve your data from a Mongo database
 
-**Consume your API with a separate front-end** built with React
+* **Consume your API with a separate front-end** built with React
 
-**Be a complete product** ensuring there are multiple relationships and CRUD functionality for at least a couple of models
+* **Be a complete product** ensuring there are multiple relationships and CRUD functionality for at least a couple of models
 
-**Implement thoughtful user stories/wireframes** to make clear the core features essential for MVP
+* **Implement thoughtful user stories/wireframes** to make clear the core features essential for MVP
 
-**Deploy online** so it’s publicly accessible
+* **Deploy online** so it’s publicly accessible
+
+# Timeframe
+
+8 days 
 
 # Technologies Used
 
@@ -128,11 +132,11 @@ To work efficiently and effectively as a team we used Trello to assign different
 
 ![trello](images/12.png)
 
-Day 2 we started building the backend, creating the models, controllers and then routes, all in NodeJS. Once the api routes had been made, we then tested them by making api requests with Insomnia. 
+Day 2 we started building the backend, creating the models, controllers and then routes all in NodeJS. Once the api routes had been made, we then tested them by making api requests with Insomnia. This was a great way to check everything was working correctly and would become a great sanity check for us when hooking up the front-end to the back-end. 
 
-Day 4 we were happy with our tests for the functionality of the backend and could start on the frontend with ReactJS. We created the different components needed for each page and a router was set up in the app.js file. 
+Day 4 we were happy with our tests for the functionality of the backend and could start on the frontend with ReactJS. We created the different components needed for each page and a router was set up in the app.js file. I focused on all the relationship functionality between users whilst another team mate concentrated on the process of raising an expense. This meant raising an expense with another user, which had to check if they were friends, if a friend request had already been sent and if that request was still pending. 
 
-Day 7 we had reached MVP and could begin styling using the Bulma framework. 
+Day 7 we had reached MVP and could begin styling using the Bulma framework. We wanted to create a simple and professional looking site so kept colour to a minimum and clear easy to use forms for register, login and create expense. 
 
 Work was carried out in branches for each feature. These were then merged with the Development branch. Any merge conflicts were fixed as a group. Features were tested on the Development branch before being merged with the Master branch. 
 
@@ -205,6 +209,11 @@ As for wins, I’m really pleased with how the backend works and allows the user
     /return/ /true/
   }
 ```
+
+# Bugs 
+
+Very small bug fixes only for this project for example I would like to change the button text to read 'Friend Request Sent!' rather than immediately 'Create Expense' when a user sends a friend request. I would also like to change the design slightly, creating fixed button sizes with fixed padding and margins to create a more holistic product. There are also a few broken images in the seeds file that I would like to go through and remove or implement an avatar style default image. 
+
 
 # Future Features 
 
