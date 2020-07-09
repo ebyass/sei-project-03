@@ -2,7 +2,7 @@
 
 # Brief
 
-In groups of 3 we had to:
+In groups of 3:
 
 **Build a full-stack MERN application** by creating your own backend and your own front-end
 
