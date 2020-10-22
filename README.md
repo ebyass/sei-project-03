@@ -65,7 +65,7 @@ Use the clone button to download the source code. In the terminal enter the foll
 
 # Accountable
 
-In our team of 3 we created Accountable, a money sharing app built for users to track bills and split expenses with friends. My part of the project included building the models in Node.js,  building the friend request and friend search functionality, implementing authentication and creating the initial seeds file
+In our team of 3 we created Accountable, a money sharing app built for users to track bills and split expenses with friends. I took ownership of building the models in Node.js,  building the friend request and friend search functionality, implementing authentication and creating the initial seeds file.
 
 # Screenshot Walk Through 
 
