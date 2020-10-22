@@ -97,7 +97,7 @@ The user can toggle between ‘Friends’ and ‘Pending Requests’ to either c
 
 ![Accountable pending requests](images/7.png)
 
-Clicking on ‘Add new friend’ takes the user to a search page, where they can search the whole database to find friends.
+Clicking on ‘Add new friend’ takes the user to a search page, where they can search the whole database to find users.
 
 ![Accountable find friends](images/8.png)
 
